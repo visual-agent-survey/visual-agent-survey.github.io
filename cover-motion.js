@@ -28,6 +28,11 @@ function startCoverMotion(canvas, image, toggle) {
   };
 
   const cycle = 2 * Math.PI / 9;
+  const hillTracks = [
+    { start: 645, end: 934, heights: [323, 314, 321, 335, 324, 310, 292], phase: .1, tint: "226, 246, 228" },
+    { start: 650, end: 932, heights: [356, 362, 355, 342, 337, 346, 356], phase: .46, tint: "255, 237, 169" },
+    { start: 647, end: 934, heights: [351, 370, 387, 386, 367, 354, 359], phase: .81, tint: "232, 249, 225" },
+  ];
 
   function field(x, y, core, edge, pose) {
     return {
@@ -139,7 +144,7 @@ function startCoverMotion(canvas, image, toggle) {
   }
 
   function render(time) {
-    renderWindowLight(time);
+    renderLensLight(time);
     for (const { left, top, w, h, fields, weights, bitmap } of patches) {
       const transforms = fields.map((field) => field.at(time));
       const data = bitmap.data;
@@ -176,30 +181,81 @@ function startCoverMotion(canvas, image, toggle) {
       }
       output.putImageData(bitmap, left, top);
     }
+    renderHillTracks(time);
   }
 
-  function renderWindowLight(time) {
-    output.clearRect(121, 111, 98, 77);
+  function hillPoint(track, progress) {
+    const { start, end, heights } = track;
+    const index = Math.min(heights.length - 2, Math.floor(progress * (heights.length - 1)));
+    const t = progress * (heights.length - 1) - index;
+    const before = heights[Math.max(0, index - 1)];
+    const current = heights[index];
+    const next = heights[index + 1];
+    const after = heights[Math.min(index + 2, heights.length - 1)];
+    const y = current + .5 * t * (next - before + t * (2 * before - 5 * current + 4 * next - after
+      + t * (3 * current - before - 3 * next + after)));
+    return [start + (end - start) * progress, y];
+  }
+
+  function renderHillTracks(time) {
     output.save();
     output.beginPath();
-    output.ellipse(170, 151, 47, 38, 0, Math.PI, 2 * Math.PI);
-    output.lineTo(217, 184);
-    output.lineTo(123, 184);
-    output.closePath();
+    output.roundRect(655, 283, 270, 120, 12);
     output.clip();
-    output.beginPath();
-    for (const [x, w] of [[124, 44], [172, 44]]) {
-      output.rect(x, 112, w, 38);
-      output.rect(x, 153, w, 31);
+    output.lineCap = "round";
+    for (const track of hillTracks) {
+      const progress = (time * 2 / 9 + track.phase) % 1;
+      const start = Math.max(0, progress - .21);
+      const end = Math.min(1, progress + .035);
+      const alpha = .8 * smooth(time / 1.25) * smooth(progress / .13) * smooth((1 - progress) / .12);
+      const from = hillPoint(track, start);
+      const to = hillPoint(track, end);
+      const paint = output.createLinearGradient(from[0], from[1], to[0], to[1]);
+      paint.addColorStop(0, `rgba(${track.tint}, 0)`);
+      paint.addColorStop(.8, `rgba(${track.tint}, ${alpha})`);
+      paint.addColorStop(1, `rgba(${track.tint}, 0)`);
+      output.strokeStyle = paint;
+      output.beginPath();
+      output.moveTo(...from);
+      for (let step = 1; step <= 14; step++) {
+        output.lineTo(...hillPoint(track, start + (end - start) * step / 14));
+      }
+      output.lineWidth = 4.2;
+      output.globalAlpha = .21;
+      output.stroke();
+      output.lineWidth = 1.8;
+      output.globalAlpha = 1;
+      output.stroke();
     }
+    output.restore();
+  }
+
+  function renderLensLight(time) {
+    const centerX = 162.5;
+    const centerY = 147.3;
+    output.clearRect(142, 126, 42, 43);
+    output.save();
+    output.beginPath();
+    output.ellipse(centerX, centerY, 18.4, 18.2, 0, 0, 2 * Math.PI);
     output.clip();
-    const x = 171 + 42 * Math.sin(time * cycle - .3);
-    const light = output.createLinearGradient(x - 23, 133, x + 23, 161);
-    light.addColorStop(0, "rgba(255, 245, 209, 0)");
-    light.addColorStop(.48, `rgba(255, 245, 209, ${.20 * smooth(time / 1.25)})`);
-    light.addColorStop(1, "rgba(255, 245, 209, 0)");
-    output.fillStyle = light;
-    output.fillRect(123, 112, 94, 73);
+
+    const beat = time * cycle;
+    const x = centerX + 14 * Math.sin(beat - .45);
+    const y = centerY - 6 + 5 * Math.cos(beat - .75);
+    const intensity = smooth(time / 1.25);
+    const sweep = output.createLinearGradient(x - 8, y - 10, x + 9, y + 11);
+    sweep.addColorStop(0, "rgba(240, 255, 248, 0)");
+    sweep.addColorStop(.49, `rgba(242, 255, 252, ${.31 * intensity})`);
+    sweep.addColorStop(1, "rgba(240, 255, 248, 0)");
+    output.fillStyle = sweep;
+    output.fillRect(144, 129, 37, 37);
+
+    const glint = output.createRadialGradient(x, y, 0, x, y, 5.3);
+    glint.addColorStop(0, `rgba(255, 247, 210, ${.85 * intensity})`);
+    glint.addColorStop(.28, `rgba(255, 244, 199, ${.48 * intensity})`);
+    glint.addColorStop(1, "rgba(255, 244, 199, 0)");
+    output.fillStyle = glint;
+    output.fillRect(x - 6, y - 6, 12, 12);
     output.restore();
   }
 
