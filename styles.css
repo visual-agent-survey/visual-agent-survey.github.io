@@ -170,6 +170,20 @@ sup { font-size: .67em; line-height: 0; margin-left: 2px; }
 .level-mechanisms li + li { margin-top: 5px; }
 .level-detail strong { color: var(--ink); font-weight: 650; }
 .level-example { margin-top: 11px; padding: 8px 11px; border-radius: 5px; background: var(--pale); }
+.level-figure {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(18px, 3vw, 36px);
+  margin: 0;
+  padding-top: clamp(18px, 2.5vw, 27px);
+  border-top: 1px solid var(--line);
+}
+.level-figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 7px; }
+.level-figure figcaption { max-width: 43ch; color: var(--muted); }
+.level-figure figcaption strong { display: block; color: var(--ink); font-size: 20px; font-weight: 550; }
+.level-figure figcaption p { margin: 7px 0 12px; font-size: 15px; }
 .text-link { display: inline-flex; align-items: center; gap: 7px; padding: 0; border: 0; background: transparent; color: var(--violet); font-size: 14px; font-weight: 700; }
 .figure-link { margin-top: 14px; }
 
@@ -301,6 +315,8 @@ input::placeholder { color: var(--muted); }
   .domains li { font-size: 14px; gap: 5px; }
   .paper-figure { padding: 8px; }
   .level-card { grid-template-columns: 1fr; gap: 15px; }
+  .level-figure { grid-template-columns: minmax(0, 1fr); }
+  .level-figure > a { max-width: 400px; }
   .level-detail { border-left: 0; border-top: 1px solid var(--line); padding: 13px 0 0; }
   .benchmark-intro { grid-template-columns: 1fr; gap: 12px; }
   .benchmark-intro article { padding-top: 12px; }
