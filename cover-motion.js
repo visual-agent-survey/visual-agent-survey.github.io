@@ -27,47 +27,91 @@ function startCoverMotion(canvas, image, toggle) {
     return t * t * (3 - 2 * t);
   };
 
-  function orbit(x, y, phase, radius, speed) {
+  const cycle = 2 * Math.PI / 9;
+
+  function field(x, y, core, edge, pose) {
     return {
-      x, y, core: 12, edge: 38,
+      x, y, core, edge,
       at(time) {
-        const angle = time * speed + phase;
-        const amplitude = radius * smooth(time / .9);
+        // Phase shifts let the gestures pass from left to right, then to the lower row.
+        const beat = time * cycle;
+        const phase = beat - x / width * 2.2 - (y > height / 2 ? 1.35 : 0);
+        const { dx = 0, dy = 0, angle = 0, stretchY = 0 } = pose(phase, beat);
+        const ramp = smooth(time / 1.25);
         return {
-          dx: amplitude * Math.cos(angle), dy: amplitude * .8 * Math.sin(angle),
-          cosine: 0, sine: 0,
+          dx: dx * ramp, dy: dy * ramp, stretchY: stretchY * ramp,
+          cosine: Math.cos(angle * ramp) - 1, sine: Math.sin(angle * ramp),
         };
       },
     };
   }
 
-  function rotation(x, y, core, edge, angleAt) {
-    return {
-      x, y, core, edge,
-      at(time) {
-        const angle = angleAt(time);
-        return { dx: 0, dy: 0, cosine: Math.cos(angle) - 1, sine: Math.sin(angle) };
-      },
-    };
+  function drift(x, y, core, edge, horizontal, vertical, delay = 0) {
+    return field(x, y, core, edge, (phase) => ({
+      dx: horizontal * Math.sin(phase - delay),
+      dy: vertical * Math.cos(phase - delay),
+    }));
   }
 
-  // The three nodes move at different rates. Overlapping motion fields bend
-  // the connecting strokes, while each node's core translates as a unit.
+  function sway(x, y, core, edge, amplitude, delay = 0) {
+    return field(x, y, core, edge, (phase) => ({
+      angle: amplitude * Math.sin(phase - delay),
+    }));
+  }
+
   const patches = [
+    // The pupil looks around inside the eye; the three linked nodes trace separate paths.
+    preparePatch(148, 109, 92, 88, [
+      drift(192, 152, 21, 42, 7, 3),
+    ]),
     preparePatch(245, 84, 150, 122, [
-      orbit(276, 141, .1, 10, .97),
-      orbit(315, 169, 2.3, 11, 1.18),
-      orbit(347, 123, 4.1, 9, .82),
+      drift(276, 141, 12, 38, 9, 7, .1),
+      drift(315, 169, 12, 38, 10, 8, 2.3),
+      drift(347, 123, 12, 38, 8, 6, 4.1),
+    ]),
+    preparePatch(440, 102, 63, 60, [
+      drift(478, 132, 16, 27, 4, 3),
+    ]),
+    preparePatch(639, 77, 111, 118, [
+      sway(701, 132, 37, 61, .12),
+    ]),
+    preparePatch(750, 91, 100, 111, [
+      field(800, 148, 36, 56, (phase) => ({
+        dy: 3 * Math.sin(phase),
+        stretchY: -.075 * Math.sin(phase),
+      })),
     ]),
     preparePatch(872, 86, 111, 94, [
-      rotation(898, 153, 21, 26, (t) => -t * 1.13),
-      rotation(942, 126, 29, 35, (t) => t * .75),
+      field(898, 153, 21, 26, (phase, beat) => ({
+        angle: -2 * beat + .14 * Math.sin(phase),
+      })),
+      field(942, 126, 29, 35, (phase, beat) => ({
+        angle: beat - .07 * Math.sin(phase),
+      })),
     ], true),
+    preparePatch(983, 79, 117, 119, [
+      sway(1034, 104, 67, 94, .102),
+    ]),
+    preparePatch(1107, 109, 88, 89, [
+      sway(1152, 163, 33, 47, .16),
+    ]),
+    // The lower row picks up the same cadence after the motifs above.
+    preparePatch(56, 291, 218, 103, [
+      drift(107, 344, 29, 47, 1.8, 5),
+      drift(165, 344, 29, 47, 1.8, 5, .25),
+      drift(221, 344, 29, 47, 1.8, 5, .5),
+    ]),
     preparePatch(378, 277, 173, 131, [
-      rotation(464, 342, 65, 87, (t) => .26 * Math.sin(t * 1.1)),
+      sway(464, 342, 65, 87, .24),
+    ]),
+    preparePatch(686, 279, 214, 124, [
+      field(786, 339, 65, 108, (phase) => ({
+        dy: 2 * Math.sin(phase),
+        stretchY: -.13 * Math.sin(phase),
+      })),
     ]),
     preparePatch(1020, 277, 185, 131, [
-      rotation(1140, 356, 50, 114, (t) => .32 * Math.sin(t * .83)),
+      sway(1140, 356, 50, 114, .28),
     ]),
   ];
 
@@ -115,11 +159,11 @@ function startCoverMotion(canvas, image, toggle) {
           for (let i = 0; i < fields.length; i++) {
             const weight = weights[i][index];
             if (!weight) continue;
-            const { dx, dy, cosine, sine } = transforms[i];
+            const { dx, dy, cosine, sine, stretchY } = transforms[i];
             const localX = baseX - fields[i].x;
             const localY = baseY - fields[i].y;
             srcX += weight * (localX * cosine + localY * sine - dx);
-            srcY += weight * (localY * cosine - localX * sine - dy);
+            srcY += weight * (localY * (cosine + stretchY) - localX * sine - dy);
           }
           const sx = Math.max(0, Math.min(width - 2, Math.floor(srcX)));
           const sy = Math.max(0, Math.min(height - 2, Math.floor(srcY)));
