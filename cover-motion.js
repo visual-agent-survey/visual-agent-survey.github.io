@@ -60,10 +60,7 @@ function startCoverMotion(canvas, image, toggle) {
   }
 
   const patches = [
-    // The pupil looks around inside the eye; the three linked nodes trace separate paths.
-    preparePatch(148, 109, 92, 88, [
-      drift(192, 152, 21, 42, 7, 3),
-    ]),
+    // The three linked nodes trace separate paths.
     preparePatch(245, 84, 150, 122, [
       drift(276, 141, 12, 38, 9, 7, .1),
       drift(315, 169, 12, 38, 10, 8, 2.3),
@@ -104,11 +101,9 @@ function startCoverMotion(canvas, image, toggle) {
     preparePatch(378, 277, 173, 131, [
       sway(464, 342, 65, 87, .24),
     ]),
-    preparePatch(686, 279, 214, 124, [
-      field(786, 339, 65, 108, (phase) => ({
-        dy: 2 * Math.sin(phase),
-        stretchY: -.13 * Math.sin(phase),
-      })),
+    preparePatch(655, 283, 270, 120, [
+      drift(750, 326, 28, 72, 3.2, 1.8),
+      drift(843, 368, 37, 77, 5, 2.2, 1.3),
     ]),
     preparePatch(1020, 277, 185, 131, [
       sway(1140, 356, 50, 114, .28),
@@ -144,6 +139,7 @@ function startCoverMotion(canvas, image, toggle) {
   }
 
   function render(time) {
+    renderWindowLight(time);
     for (const { left, top, w, h, fields, weights, bitmap } of patches) {
       const transforms = fields.map((field) => field.at(time));
       const data = bitmap.data;
@@ -180,6 +176,31 @@ function startCoverMotion(canvas, image, toggle) {
       }
       output.putImageData(bitmap, left, top);
     }
+  }
+
+  function renderWindowLight(time) {
+    output.clearRect(121, 111, 98, 77);
+    output.save();
+    output.beginPath();
+    output.ellipse(170, 151, 47, 38, 0, Math.PI, 2 * Math.PI);
+    output.lineTo(217, 184);
+    output.lineTo(123, 184);
+    output.closePath();
+    output.clip();
+    output.beginPath();
+    for (const [x, w] of [[124, 44], [172, 44]]) {
+      output.rect(x, 112, w, 38);
+      output.rect(x, 153, w, 31);
+    }
+    output.clip();
+    const x = 171 + 42 * Math.sin(time * cycle - .3);
+    const light = output.createLinearGradient(x - 23, 133, x + 23, 161);
+    light.addColorStop(0, "rgba(255, 245, 209, 0)");
+    light.addColorStop(.48, `rgba(255, 245, 209, ${.20 * smooth(time / 1.25)})`);
+    light.addColorStop(1, "rgba(255, 245, 209, 0)");
+    output.fillStyle = light;
+    output.fillRect(123, 112, 94, 73);
+    output.restore();
   }
 
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
