@@ -101,10 +101,10 @@ sup { font-size: .67em; line-height: 0; margin-left: 2px; }
 .hero-art { margin-top: 29px; }
 .hero-image { position: relative; border: 1px solid var(--hero-line); border-radius: 9px; background: #f1efee; overflow: hidden; box-shadow: 0 26px 55px #39254120; }
 .hero-image img { width: 100%; }
-#cover-flow { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#cover-motion { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .hero-art figcaption { color: var(--muted); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 15px; margin-top: 10px; font: 11px/1.4 var(--mono); letter-spacing: .035em; }
-.cover-flow-toggle { padding: 4px 8px; color: var(--violet-hover); border: 1px solid var(--control-line); border-radius: 5px; background: var(--surface); }
-.cover-flow-toggle:hover { background: var(--pale); }
+.cover-motion-toggle { padding: 4px 8px; color: var(--violet-hover); border: 1px solid var(--control-line); border-radius: 5px; background: var(--surface); }
+.cover-motion-toggle:hover { background: var(--pale); }
 .hero-index { display: grid; grid-template-columns: .87fr 1fr .87fr 1.26fr; border-top: 1px solid var(--hero-line); }
 .hero-index a { display: flex; align-items: center; gap: 11px; padding: 17px 15px; line-height: 1.3; color: var(--ink); font-size: 13px; font-weight: 600; }
 .hero-index a:first-child { padding-left: 0; }
