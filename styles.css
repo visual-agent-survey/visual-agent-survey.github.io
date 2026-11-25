@@ -66,9 +66,7 @@ ul, ol { padding: 0; margin: 0; }
 .header-inner { display: flex; align-items: center; min-height: 70px; gap: 28px; }
 .brand { display: inline-flex; align-items: center; gap: 5px; font-size: 17px; font-weight: 700; letter-spacing: -.035em; white-space: nowrap; }
 .brand-light { font-weight: 500; color: var(--muted); }
-.mark { width: 31px; height: 31px; display: grid; place-items: center; margin-right: 5px; background: var(--violet); border-radius: 8px; }
-.mark i { width: 15px; height: 15px; border-radius: 50%; border: 1px solid #f5effa; display: grid; place-items: center; }
-.mark i::before { content: ""; width: 7px; height: 7px; border-radius: 50%; border: 1px solid #f5effa; }
+.mark { width: 31px; height: 31px; flex-shrink: 0; margin-right: 5px; object-fit: contain; }
 .main-nav { margin-left: auto; display: flex; align-items: center; gap: clamp(16px, 3vw, 38px); font-weight: 600; font-size: 14px; }
 .main-nav a { padding-block: 12px; color: var(--muted); }
 .main-nav a:hover, .header-link:hover, .footer a:hover, .text-link:hover { color: var(--violet); text-decoration: underline; text-underline-offset: .2em; }
