@@ -1,54 +1,6 @@
 "use strict";
 
 const $ = (selector) => document.querySelector(selector);
-const levelData = [
-  {
-    name: "Fixed workflow",
-    section: "L0 · Fixed workflow",
-    description: "The task goal and initial observations determine a workflow. Later observations supply inputs to its scheduled operations.",
-    facts: ["Working state and operation inputs", "During execution", "Scheduled workflow steps"],
-    mechanisms: [["Preset execution", "The harness coordinates a workflow chosen before execution."]],
-  },
-  {
-    name: "Within-task adaptation",
-    section: "L1 · Within-task adaptation",
-    description: "Feedback changes what the agent observes, plans, or does while it is solving the current task.",
-    facts: ["Active workflow, output, or action", "Within the current task", "Subsequent steps in that task"],
-    mechanisms: [
-      ["Adaptive perception", "Select a viewpoint, re-ground a target, or revisit earlier visual evidence."],
-      ["Feedback-driven planning", "Revise subgoals, repair a plan segment, or replan from the current state."],
-      ["Dynamic harness orchestration", "Route to a model, tool, or skill using feedback from execution."],
-      ["Output and action refinement", "Inspect a proposed answer, artifact, or action and refine it."],
-      ["Execution monitoring and control", "Detect deviations and intervene during execution."],
-    ],
-  },
-  {
-    name: "Self-evolution",
-    section: "L2 · Self-evolution",
-    description: "Experience updates a model or harness resource. The revised resource is retained for a later task, trial, or training round.",
-    facts: ["Model or harness resources", "Across tasks or rounds", "Later execution using the revised resource"],
-    mechanisms: [
-      ["Model-level evolution", "Update model capabilities from visual interaction or task feedback."],
-      ["Memory-driven capability evolution", "Write and consolidate experience that later tasks can retrieve."],
-      ["Skill and tool-level evolution", "Create, revise, or expand reusable skills and tools."],
-      ["Orchestration-level evolution", "Retain changes to workflows, routing policies, or agent coordination."],
-      ["Dynamic data and task evolution", "Construct or select experience for subsequent learning."],
-    ],
-  },
-  {
-    name: "Toward recursive self-improvement",
-    section: "L3 · Toward RSI",
-    description: "Experience revises a component of the updater, and the agent uses that revised component to produce a later retained update.",
-    facts: ["A component of the improvement process", "Across improvement rounds", "A subsequent update to the agent"],
-    mechanisms: [
-      ["Evolving learning signals and experience", "Revise how training tasks, rewards, or feedback are produced."],
-      ["Evolving memory and context management", "Update the procedures that select and maintain experience for learning."],
-      ["Evolving update mechanisms", "Revise the procedures that generate or apply later updates."],
-      ["Evolving evaluation and validation", "Improve the evaluator or verifier that guides a later update."],
-    ],
-  },
-];
-
 function element(tag, text, className) {
   const node = document.createElement(tag);
   if (text !== undefined) node.textContent = text;
@@ -72,51 +24,6 @@ function resourceLinks(record, name) {
   }
   return links;
 }
-
-const tabs = [...document.querySelectorAll("[data-level]")];
-function showLevel(index) {
-  const level = levelData[index];
-  for (const tab of tabs) {
-    const selected = Number(tab.dataset.level) === index;
-    tab.setAttribute("aria-selected", selected);
-    tab.tabIndex = selected ? 0 : -1;
-  }
-  $("#level-panel").setAttribute("aria-labelledby", tabs[index].id);
-  $("#level-title").textContent = level.name;
-  $("#level-description").textContent = level.description;
-  $("#mechanism-title").textContent = index === 0 ? "Workflow" : "Mechanisms in the survey";
-  $("#level-facts").replaceChildren(...["What changes", "When", "Used in"].map((label, factIndex) => {
-    const row = element("div");
-    row.append(element("dt", label), element("dd", level.facts[factIndex]));
-    return row;
-  }));
-  $("#level-mechanisms").replaceChildren(...level.mechanisms.map(([name, description]) => {
-    const row = element("li");
-    row.append(element("strong", name), element("span", description));
-    return row;
-  }));
-}
-
-tabs.forEach((tab, index) => {
-  tab.addEventListener("click", () => showLevel(index));
-  tab.addEventListener("keydown", (event) => {
-    const nextByKey = {
-      ArrowLeft: (index + tabs.length - 1) % tabs.length,
-      ArrowRight: (index + 1) % tabs.length,
-      Home: 0,
-      End: tabs.length - 1,
-    };
-    if (!Object.hasOwn(nextByKey, event.key)) return;
-    event.preventDefault();
-    const next = nextByKey[event.key];
-    showLevel(next);
-    tabs[next].focus();
-  });
-});
-for (const link of document.querySelectorAll("[data-level-link]")) {
-  link.addEventListener("click", () => showLevel(Number(link.dataset.levelLink)));
-}
-showLevel(1);
 
 const copyButton = $("#copy-citation");
 let copyTimer;
@@ -223,7 +130,8 @@ function initReferences(references) {
   }));
   const years = [...new Set(entries.map((row) => row.year).filter(Boolean))].sort((a, b) => Number(b) - Number(a));
   const byLabel = (a, b) => a.localeCompare(b);
-  const sectionNames = [...levelData.map((level) => level.section), "Benchmarks and evaluation", "Foundations", "Introduction", "Research outlook", "Conclusion"];
+  const levelLinks = [...document.querySelectorAll("[data-reference-section]")];
+  const sectionNames = [...levelLinks.map((link) => link.dataset.referenceSection), "Benchmarks and evaluation", "Foundations", "Introduction", "Research outlook", "Conclusion"];
   addOptions(inputs.year, years);
   addOptions(inputs.type, [...new Set(entries.map((row) => row.type))].sort(byLabel));
   addOptions(inputs.venue, [...new Set(entries.map((row) => row.venue).filter(Boolean))].sort(byLabel));
@@ -367,12 +275,13 @@ function initReferences(references) {
     changeFilters();
     inputs.q.focus();
   });
-  $("#level-references").addEventListener("click", () => {
-    for (const key of ["q", "year", "type", "venue"]) inputs[key].value = defaultValues[key];
-    const current = tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true");
-    inputs.section.value = levelData[current].section;
-    changeFilters();
-  });
+  for (const link of levelLinks) {
+    link.addEventListener("click", () => {
+      for (const key of ["q", "year", "type", "venue"]) inputs[key].value = defaultValues[key];
+      inputs.section.value = link.dataset.referenceSection;
+      changeFilters();
+    });
+  }
   window.addEventListener("popstate", () => {
     loadLocation();
     render();
