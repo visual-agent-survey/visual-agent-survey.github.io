@@ -1,10 +1,10 @@
 "use strict";
 
 const coverLevelColors = [
-  { preview: "#526da6", rgb: "137, 174, 255" },
-  { preview: "#387c78", rgb: "105, 229, 223" },
-  { preview: "#a36b37", rgb: "255, 203, 135" },
-  { preview: "#7958a4", rgb: "225, 172, 255" },
+  { preview: "#d4e2ff", rgb: "137, 174, 255" },
+  { preview: "#bcf0e9", rgb: "105, 229, 223" },
+  { preview: "#ffe2bc", rgb: "255, 203, 135" },
+  { preview: "#f2d9ff", rgb: "225, 172, 255" },
 ];
 
 {
@@ -474,9 +474,10 @@ function createCoverLevel(canvas, level) {
   pen.scale(plate.width / width, plate.height / height);
   display.scale(canvas.width / width, canvas.height / height);
 
-  const ink = "#f3f0fa";
+  const nodeFill = "#faf9f5";
+  const nodeInk = "#4b386e";
   const secondary = accent + "c7";
-  const faint = "#898298";
+  const faint = "#c8b7f2";
   const active = [];
 
   function line(points, color, weight = 1) {
@@ -512,7 +513,7 @@ function createCoverLevel(canvas, level) {
   function planet(x, y, radius, color, rings = 1) {
     pen.beginPath();
     pen.arc(x, y, radius, 0, Math.PI * 2);
-    pen.fillStyle = ink;
+    pen.fillStyle = nodeFill;
     pen.fill();
     pen.strokeStyle = color;
     pen.lineWidth = 1.35;
@@ -520,7 +521,7 @@ function createCoverLevel(canvas, level) {
     pen.save();
     pen.clip();
     for (let mark = -radius * .6; mark < radius; mark += 2.6) {
-      line([[x + mark - 5, y + radius], [x + mark + 4, y - radius]], color + "70");
+      line([[x + mark - 5, y + radius], [x + mark + 4, y - radius]], nodeInk + "90");
     }
     pen.restore();
     for (let ring = 1; ring <= rings; ring++) {
@@ -539,13 +540,13 @@ function createCoverLevel(canvas, level) {
     pen.lineTo(x, y + 13);
     pen.lineTo(x - 13, y);
     pen.closePath();
-    pen.fillStyle = ink;
+    pen.fillStyle = nodeFill;
     pen.fill();
     pen.strokeStyle = color;
     pen.lineWidth = 1.7;
     pen.stroke();
-    line([[x - 4, y], [x + 4, y]], color, 1.5);
-    if (revised) line([[x, y - 4], [x, y + 4]], color, 1.5);
+    line([[x - 4, y], [x + 4, y]], nodeInk, 1.5);
+    if (revised) line([[x, y - 4], [x, y + 4]], nodeInk, 1.5);
   }
 
   function star(x, y, radius, color) {
