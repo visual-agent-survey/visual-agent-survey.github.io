@@ -46,7 +46,7 @@
   background: var(--paper);
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--anchor-inset, 86px); }
 body { margin: 0; }
 a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; color: inherit; }
@@ -63,6 +63,22 @@ ul, ol { padding: 0; margin: 0; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 .header { position: sticky; top: 0; z-index: 10; background: var(--paper); border-bottom: 1px solid var(--line); }
+.has-scroll-feedback .header::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, var(--violet), var(--focus));
+  transform: scaleX(var(--reading-progress, 0));
+  transform-origin: left;
+  pointer-events: none;
+}
+.has-scroll-feedback .header { transition: box-shadow 160ms ease; }
+.has-scroll-feedback .header[data-scrolled] { box-shadow: 0 3px 12px #3324480f; }
+.main-nav a { transition: color 140ms ease; }
+.main-nav a[aria-current="location"] { color: var(--violet-hover); text-decoration: underline; text-underline-offset: .32em; }
 .header-inner { display: flex; align-items: center; min-height: 70px; gap: 28px; }
 .brand { display: inline-flex; align-items: center; gap: 5px; font-size: 17px; font-weight: 700; letter-spacing: -.035em; white-space: nowrap; }
 .brand-light { font-weight: 500; color: var(--muted); }
@@ -280,7 +296,7 @@ input::placeholder { color: var(--muted); }
   .reference-results .ref-links { grid-column: 2; }
 }
 @media (max-width: 760px) {
-  html { scroll-padding-top: 101px; }
+  html { scroll-padding-top: var(--anchor-inset, 101px); }
   .shell { width: calc(100% - 34px); }
   .header-inner { min-height: 56px; gap: 0 10px; flex-wrap: wrap; padding-block: 9px 0; }
   .main-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
@@ -319,4 +335,7 @@ input::placeholder { color: var(--muted); }
   .hero-actions { gap: 5px; }
   .hero-actions .button { font-size: 12px; padding-inline: 8px; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .has-scroll-feedback .header, .main-nav a { transition: none; }
+}
