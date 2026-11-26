@@ -334,7 +334,7 @@ input::placeholder { color: var(--muted); }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; align-items: center; padding-block: 23px; }
 .footer .brand-light, .footer-inner > div { color: var(--paper); }
 .footer a:hover { color: var(--paper); }
-.footer-inner > div { display: flex; gap: 18px; font-size: 13px; font-weight: 650; }
+.footer-inner > div { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; font-weight: 650; }
 
 @media (max-width: 1050px) {
   .shell { width: calc(100% - 64px); }
