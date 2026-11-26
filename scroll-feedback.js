@@ -4,7 +4,7 @@
   const root = document.documentElement;
   const header = document.querySelector(".header");
   const readingSurface = document.querySelector(".reading-surface");
-  const footer = document.querySelector(".footer");
+  const citation = document.querySelector("#citation");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const finePointer = matchMedia("(any-pointer: fine)");
   const desktopMotion = matchMedia("(min-width: 761px) and (prefers-reduced-motion: no-preference)");
@@ -27,7 +27,7 @@
   let observedInset = "";
   let headerAnimation;
   let readingAtHeader = false;
-  let footerVisible = false;
+  let citationVisible = false;
 
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
@@ -44,7 +44,7 @@
   }
 
   function updateReadingMode(animate) {
-    setReadingMode(readingAtHeader && !footerVisible, animate);
+    setReadingMode(readingAtHeader || citationVisible, animate);
   }
 
   function watchReadingSurface(headerHeight) {
@@ -55,7 +55,7 @@
     readingObserver?.disconnect();
     const bounds = readingSurface.getBoundingClientRect();
     readingAtHeader = bounds.top < line + 2 && bounds.bottom > line;
-    footerVisible = footer.getBoundingClientRect().top < viewport - 24;
+    citationVisible = citation.getBoundingClientRect().top < viewport - 24 && citation.getBoundingClientRect().bottom > 0;
     updateReadingMode(false);
     if ("IntersectionObserver" in window) {
       readingObserver = new IntersectionObserver(([entry]) => {
@@ -94,7 +94,7 @@
       const bounds = readingSurface.getBoundingClientRect();
       const line = header.offsetHeight + 14;
       readingAtHeader = bounds.top < line + 2 && bounds.bottom > line;
-      footerVisible = footer.getBoundingClientRect().top < viewport - 24;
+      citationVisible = citation.getBoundingClientRect().top < viewport - 24 && citation.getBoundingClientRect().bottom > 0;
       updateReadingMode(false);
     }
 
@@ -142,11 +142,11 @@
   }
 
   if ("IntersectionObserver" in window) {
-    const footerObserver = new IntersectionObserver(([entry]) => {
-      footerVisible = entry.isIntersecting;
+    const citationObserver = new IntersectionObserver(([entry]) => {
+      citationVisible = entry.isIntersecting;
       updateReadingMode(true);
     }, { rootMargin: "0px 0px -24px 0px" });
-    footerObserver.observe(footer);
+    citationObserver.observe(citation);
 
     const byStage = new Map(scenes.map((scene) => [scene.stage, scene]));
     const visibility = new IntersectionObserver((entries) => {

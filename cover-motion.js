@@ -1,10 +1,10 @@
 "use strict";
 
 const coverLevelColors = [
-  { light: "#89aeff", rgb: "137, 174, 255" },
-  { light: "#69e5df", rgb: "105, 229, 223" },
-  { light: "#ffcb87", rgb: "255, 203, 135" },
-  { light: "#e1acff", rgb: "225, 172, 255" },
+  { preview: "#526da6", rgb: "137, 174, 255" },
+  { preview: "#387c78", rgb: "105, 229, 223" },
+  { preview: "#a36b37", rgb: "255, 203, 135" },
+  { preview: "#7958a4", rgb: "225, 172, 255" },
 ];
 
 {
@@ -464,8 +464,7 @@ function curvePoint([start, first, second, end], t) {
 function createCoverLevel(canvas, level) {
   const display = canvas.getContext("2d");
   if (!display) return;
-  const { light: accent } = coverLevelColors[level];
-  canvas.closest("a").style.setProperty("--level-glow", accent);
+  const { preview: accent } = coverLevelColors[level];
   const plate = document.createElement("canvas");
   plate.width = canvas.width;
   plate.height = canvas.height;
@@ -475,9 +474,9 @@ function createCoverLevel(canvas, level) {
   pen.scale(plate.width / width, plate.height / height);
   display.scale(canvas.width / width, canvas.height / height);
 
-  const ink = "#1b1130";
-  const secondary = accent + "a3";
-  const faint = "#696184";
+  const ink = "#f3f0fa";
+  const secondary = accent + "c7";
+  const faint = "#898298";
   const active = [];
 
   function line(points, color, weight = 1) {
@@ -611,7 +610,7 @@ function createCoverLevel(canvas, level) {
       const [x, y] = curvePoint(points, phase);
       display.fillStyle = color;
       display.globalAlpha = opacity;
-      display.shadowBlur = 9;
+      display.shadowBlur = 4;
       display.shadowColor = color;
       display.beginPath();
       display.arc(x, y, 2.8, 0, Math.PI * 2);
