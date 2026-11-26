@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A survey of visual agents, their models and harnesses, and how they learn from experience across tasks and update rounds.">
-  <meta name="theme-color" content="#121f33">
+  <meta name="theme-color" content="#9775fa">
   <title>Visual Agents Survey — Harness, Self-Evolution & RSI</title>
   <link rel="icon" href="assets/survey-robot.png" type="image/png">
-  <link rel="stylesheet" href="styles.css?v=clean-moon-cover">
+  <link rel="stylesheet" href="styles.css?v=warm-white">
   <script src="data.js" defer></script>
   <script src="app.js?v=survey-layout" defer></script>
-  <script src="cover-motion.js?v=clean-moon-cover" defer></script>
+  <script src="cover-motion.js?v=white-level-previews" defer></script>
   <script src="assets/vendor/lenis-1.3.28.min.js" defer></script>
   <script src="scroll-feedback.js?v=scroll-reveal" defer></script>
 </head>
@@ -40,7 +40,7 @@
               <p class="subtitle">Toward Recursive Self-Improvement</p>
             </div>
             <div class="hero-actions">
-              <a class="button button-primary" href="assets/visual-agents-survey.pdf" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
+              <a class="button button-outline" href="assets/visual-agents-survey.pdf" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
               <a class="button button-outline" href="#taxonomy">Explore the taxonomy <span aria-hidden="true">↓</span></a>
               <a class="button button-outline" href="#citation">BibTeX <span aria-hidden="true">↓</span></a>
               <a class="button button-outline" href="https://github.com/heshuting555/Awesome-Visual-Agent" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
@@ -48,10 +48,20 @@
           </div>
           <div class="hero-visual">
             <figure class="hero-art">
-              <div class="hero-window">
-                <div class="hero-image">
-                  <img src="assets/survey-cover-moonlit.webp" width="2172" height="724" fetchpriority="high" alt="A silver-blue moon rising above mist and dark reflective water">
+              <div class="hero-window" data-scroll-stage>
+                <div class="hero-image" data-scroll-layer="hero">
+                  <img src="assets/survey-cover-orbits.webp" width="1536" height="1024" fetchpriority="high" alt="An engraved indigo planet, with a space probe tracing orbital paths toward a distant star">
                   <canvas id="cover-motion" aria-hidden="true"></canvas>
+                  <dl class="cover-foundations" aria-label="Visual agent foundations">
+                    <div class="cover-model">
+                      <dt><canvas class="cover-foundation-icon" width="64" height="64" aria-hidden="true"></canvas>Visual models</dt>
+                      <dd>Perception · Planning · Output</dd>
+                    </div>
+                    <div class="cover-harness">
+                      <dt><canvas class="cover-foundation-icon" width="64" height="64" aria-hidden="true"></canvas>Agent harness</dt>
+                      <dd>Orchestration · Memory · Skills<br>Tools · Monitoring &amp; recovery</dd>
+                    </div>
+                  </dl>
                 </div>
               </div>
               <figcaption>
