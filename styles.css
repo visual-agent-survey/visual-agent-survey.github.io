@@ -43,7 +43,7 @@
   --selection: var(--violet-200);
   --control-line: var(--violet-200);
   --pale: var(--violet-50);
-  --frame-bg: #1c112e;
+  --frame-bg: #6748d4;
   --night: #130116;
   --deep-panel: #2b1c45;
   --lilac-light: var(--violet-200);
@@ -76,7 +76,7 @@ ul, ol { padding: 0; margin: 0; }
   margin-inline: auto;
 }
 .reading-surface { background: var(--paper); }
-.footer { margin-bottom: var(--frame-gutter); color: var(--violet-50); background: var(--deep-panel); border-top: 1px solid #ffffff2a; }
+.footer { margin-bottom: var(--frame-gutter); color: var(--violet-50); background: var(--frame-bg); border-top: 1px solid #ffffff2a; }
 .skip-link { position: fixed; z-index: 50; top: 10px; left: 10px; padding: 10px 16px; background: white; transform: translateY(-150%); }
 .skip-link:focus { transform: translateY(0); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -316,10 +316,10 @@ input::placeholder { color: var(--muted); }
 .pagination button[aria-current="page"] { color: #fff; border-color: var(--violet); background: var(--violet); }
 .pagination span { padding-inline: 4px; color: var(--muted); }
 
-.citation-section { padding-block: clamp(48px, 7vw, 85px); color: var(--violet-50); background: var(--deep-panel); }
+.citation-section { padding-block: clamp(48px, 7vw, 85px); color: var(--violet-50); background: var(--frame-bg); }
 .citation-inner { display: grid; grid-template-columns: .7fr 1.3fr; gap: 36px; align-items: center; }
-.citation-inner .kicker { color: var(--lilac-light); }
-.citation-inner p:not(.kicker) { margin-top: 12px; color: var(--violet-200); }
+.citation-inner .kicker { color: var(--violet-50); }
+.citation-inner p:not(.kicker) { margin-top: 12px; color: var(--violet-50); }
 .citation-code { color: var(--ink); padding: 14px 16px 9px; min-width: 0; border: 1px solid var(--control-line); border-radius: 8px; background: var(--surface); }
 .citation-code pre { color: var(--ink); margin-block: 12px 5px; overflow: auto; font: 12px/1.65 var(--mono); }
 .button-lite { min-height: 32px; padding: 5px 9px; color: var(--violet-hover); border-color: var(--control-line); background: var(--pale); font-size: 12px; }
@@ -330,7 +330,7 @@ input::placeholder { color: var(--muted); }
 .bib-value { color: var(--value); }
 .footer { border-top: 1px solid var(--line); }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; align-items: center; padding-block: 23px; }
-.footer .brand-light, .footer-inner > div { color: var(--violet-200); }
+.footer .brand-light, .footer-inner > div { color: var(--violet-50); }
 .footer a:hover { color: white; }
 .footer-inner > div { display: flex; gap: 18px; font-size: 13px; font-weight: 650; }
 
