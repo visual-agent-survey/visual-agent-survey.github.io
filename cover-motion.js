@@ -17,7 +17,13 @@ const coverLevelColors = [
     const levels = Array.from(document.querySelectorAll(".cover-level-art"), createCoverLevel);
     levels.forEach((paint) => paint?.());
     toggle.hidden = false;
-    toggle.addEventListener("click", async () => {
+    let observer;
+    let initialized = false;
+    async function initialize() {
+      if (initialized) return;
+      initialized = true;
+      observer?.disconnect();
+      toggle.removeEventListener("click", initialize);
       toggle.disabled = true;
       try {
         await image.decode();
@@ -29,7 +35,15 @@ const coverLevelColors = [
       } finally {
         toggle.disabled = false;
       }
-    }, { once: true });
+    }
+    toggle.addEventListener("click", initialize, { once: true });
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    if (!reduced.matches) {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !reduced.matches) initialize();
+      });
+      observer.observe(canvas);
+    }
   }
 }
 
