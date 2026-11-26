@@ -7,12 +7,11 @@
   <meta name="theme-color" content="#f5f5f5">
   <title>Visual Agents Survey — Harness, Self-Evolution & RSI</title>
   <link rel="icon" href="assets/survey-robot.png" type="image/png">
-  <link rel="stylesheet" href="styles.css?v=taxonomy-cards-scroll">
+  <link rel="stylesheet" href="styles.css?v=survey-layout">
   <script src="data.js" defer></script>
-  <script src="app.js?v=taxonomy-cards" defer></script>
-  <script src="cover-motion.js?v=camera-hills" defer></script>
-  <script src="assets/vendor/lenis-1.3.28.min.js" defer></script>
-  <script src="scroll-feedback.js" defer></script>
+  <script src="app.js?v=survey-layout" defer></script>
+  <script src="cover-motion.js?v=play-on-demand" defer></script>
+  <script src="scroll-feedback.js?v=native" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#survey">Skip to the survey</a>
@@ -21,8 +20,9 @@
       <a class="brand" href="#top"><img class="mark" src="assets/survey-robot.png" width="31" height="31" alt="">Visual Agents <span class="brand-light">Survey</span></a>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#survey">Survey</a>
+        <a href="#taxonomy">Taxonomy</a>
         <a href="#benchmarks">Benchmarks</a>
-        <a href="#references">Reference Library</a>
+        <a href="#references">References</a>
       </nav>
       <a class="header-link" href="https://github.com/heshuting555/Awesome-Visual-Agent" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
     </div>
@@ -37,63 +37,64 @@
             <h1 id="title">Seeing the Harness and <em>Self-Evolution</em> of Visual Agents</h1>
             <p class="subtitle">Toward Recursive Self-Improvement</p>
           </div>
-          <div class="hero-credit">
-            <ul class="authors" aria-label="Authors">
-              <li>Dong Chen<sup>1</sup></li><li>Shuai Ge<sup>1</sup></li><li>Yu Fu<sup>1</sup></li><li>Xiangyu Ren<sup>1</sup></li><li>Zhihao Zhang<sup>1</sup></li><li>Hao Wang<sup>2</sup></li><li>Changshuo Wang<sup>3</sup></li><li>Jiayi Ji<sup>4</sup></li><li>Henghui Ding<sup>5</sup></li><li>Shuting He<sup>1</sup></li>
-            </ul>
-            <p class="affiliations"><span><sup>1</sup> SUFE</span><span><sup>2</sup> MBZUAI</span><span><sup>3</sup> UCL</span><span><sup>4</sup> Xiamen University</span><span><sup>5</sup> Fudan University</span></p>
-            <div class="affiliation-logos">
-              <img src="assets/affiliations/sufe.webp" width="149" height="146" alt="" title="Shanghai University of Finance and Economics">
-              <img src="assets/affiliations/mbzuai.webp" width="415" height="103" alt="" title="Mohamed bin Zayed University of Artificial Intelligence">
-              <img src="assets/affiliations/ucl.webp" width="453" height="127" alt="" title="University College London">
-              <img src="assets/affiliations/xiamen.svg" width="267" height="267" alt="" title="Xiamen University">
-              <img src="assets/affiliations/fudan.svg" width="512" height="511" alt="" title="Fudan University">
-            </div>
-          </div>
           <div class="hero-actions">
             <a class="button button-primary" href="assets/visual-agents-survey.pdf" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
             <a class="button button-outline" href="#taxonomy">Explore the taxonomy <span aria-hidden="true">↓</span></a>
             <a class="hero-text-link" href="#citation">BibTeX <span aria-hidden="true">↓</span></a>
           </div>
         </div>
-        <figure class="hero-art">
-          <div class="hero-image">
-            <img src="assets/survey-cover-camera-hills.webp" width="2172" height="724" fetchpriority="high" alt="Illustration of visual agent models and harnesses, with a video camera above four stages of improvement, including a panel of rolling hills">
-            <canvas id="cover-motion" aria-hidden="true"></canvas>
-          </div>
-          <figcaption>
-            <span>Visual models, agent harnesses, and four levels of improvement</span>
-            <button id="cover-motion-toggle" class="cover-motion-toggle" type="button" hidden>Pause animation</button>
-          </figcaption>
-        </figure>
+        <div class="hero-visual">
+          <figure class="hero-art">
+            <div class="hero-image">
+              <img src="assets/survey-cover-camera-hills.webp" width="2172" height="724" fetchpriority="high" alt="Illustration of visual agent models and harnesses, with a video camera above four stages of improvement, including a panel of rolling hills">
+              <canvas id="cover-motion" aria-hidden="true"></canvas>
+            </div>
+            <figcaption>
+              <button id="cover-motion-toggle" class="cover-motion-toggle" type="button" hidden>Play animation</button>
+            </figcaption>
+          </figure>
+          <nav class="hero-index" aria-label="Survey levels">
+            <a href="#level-0"><span>L0</span>Fixed workflow <b aria-hidden="true">↘</b></a>
+            <a href="#level-1"><span>L1</span>Within-task adaptation <b aria-hidden="true">↘</b></a>
+            <a href="#level-2"><span>L2</span>Self-evolution <b aria-hidden="true">↘</b></a>
+            <a href="#level-3"><span>L3</span>Toward RSI <b aria-hidden="true">↘</b></a>
+          </nav>
+        </div>
       </div>
-      <nav class="hero-index shell" aria-label="Survey levels">
-        <a href="#level-0"><span>L0</span>Fixed workflow <b aria-hidden="true">↘</b></a>
-        <a href="#level-1"><span>L1</span>Within-task adaptation <b aria-hidden="true">↘</b></a>
-        <a href="#level-2"><span>L2</span>Self-evolution <b aria-hidden="true">↘</b></a>
-        <a href="#level-3"><span>L3</span>Toward recursive self-improvement <b aria-hidden="true">↘</b></a>
-      </nav>
+      <div class="hero-credit shell">
+        <ul class="authors" aria-label="Authors">
+          <li>Dong Chen<sup>1</sup></li><li>Shuai Ge<sup>1</sup></li><li>Yu Fu<sup>1</sup></li><li>Xiangyu Ren<sup>1</sup></li><li>Zhihao Zhang<sup>1</sup></li><li>Hao Wang<sup>2</sup></li><li>Changshuo Wang<sup>3</sup></li><li>Jiayi Ji<sup>4</sup></li><li>Henghui Ding<sup>5</sup></li><li>Shuting He<sup>1</sup></li>
+        </ul>
+        <p class="affiliations"><span><sup>1</sup> SUFE</span><span><sup>2</sup> MBZUAI</span><span><sup>3</sup> UCL</span><span><sup>4</sup> Xiamen University</span><span><sup>5</sup> Fudan University</span></p>
+        <div class="affiliation-logos">
+          <img src="assets/affiliations/sufe.webp" width="149" height="146" alt="" title="Shanghai University of Finance and Economics">
+          <img src="assets/affiliations/mbzuai.webp" width="415" height="103" alt="" title="Mohamed bin Zayed University of Artificial Intelligence">
+          <img src="assets/affiliations/ucl.webp" width="453" height="127" alt="" title="University College London">
+          <img src="assets/affiliations/xiamen.svg" width="267" height="267" alt="" title="Xiamen University">
+          <img src="assets/affiliations/fudan.svg" width="512" height="511" alt="" title="Fudan University">
+        </div>
+      </div>
     </section>
 
     <section id="survey" class="section shell" aria-labelledby="survey-title">
       <div class="section-heading overview-heading">
         <div>
           <p class="kicker">The survey</p>
-          <h2 id="survey-title">How do visual agents<br class="wide-break"> improve from experience?</h2>
+          <h2 id="survey-title">How do visual agents improve from experience?</h2>
         </div>
         <p>A visual agent combines one or more models with a harness that coordinates reasoning, memory, skills, and tool use. The survey traces what experience changes, how long the change persists, and where it is used next.</p>
       </div>
       <div class="overview-grid">
+        <figure class="paper-figure">
+          <a href="assets/foundations.webp" target="_blank" rel="noopener"><img src="assets/foundations.webp" width="2000" height="682" loading="lazy" alt="The paper's diagram of visual agent foundations and the four levels of adaptation and evolution"></a>
+          <figcaption>Visual agent foundations and levels of adaptation and evolution <a href="assets/foundations.webp" target="_blank" rel="noopener">Open figure ↗</a></figcaption>
+        </figure>
         <ul class="domains" aria-label="Visual domains covered">
           <li><span aria-hidden="true">◎</span>Visual understanding</li>
           <li><span aria-hidden="true">✧</span>Generation &amp; editing</li>
           <li><span aria-hidden="true">⊞</span>Computer use</li>
           <li><span aria-hidden="true">◇</span>Embodied interaction</li>
         </ul>
-        <figure class="paper-figure">
-          <a href="assets/foundations.webp" target="_blank" rel="noopener"><img src="assets/foundations.webp" width="2000" height="682" loading="lazy" alt="The paper's diagram of visual agent foundations and the four levels of adaptation and evolution"></a>
-          <figcaption>Visual agent foundations and levels of adaptation and evolution <a href="assets/foundations.webp" target="_blank" rel="noopener">Open figure ↗</a></figcaption>
-        </figure>
       </div>
     </section>
 

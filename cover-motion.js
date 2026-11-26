@@ -4,9 +4,20 @@
   const canvas = document.querySelector("#cover-motion");
   const toggle = document.querySelector("#cover-motion-toggle");
   const image = canvas?.previousElementSibling;
-  if (image instanceof HTMLImageElement && toggle && canvas.getContext("2d")) {
-    if (image.complete && image.naturalWidth) startCoverMotion(canvas, image, toggle);
-    else image.addEventListener("load", () => startCoverMotion(canvas, image, toggle), { once: true });
+  if (image instanceof HTMLImageElement && toggle && "CanvasRenderingContext2D" in window) {
+    toggle.hidden = false;
+    toggle.addEventListener("click", async () => {
+      toggle.disabled = true;
+      try {
+        await image.decode();
+        if (canvas.getContext("2d")) startCoverMotion(canvas, image, toggle);
+        else toggle.hidden = true;
+      } catch {
+        toggle.hidden = true;
+      } finally {
+        toggle.disabled = false;
+      }
+    }, { once: true });
   }
 }
 
@@ -260,11 +271,12 @@ function startCoverMotion(canvas, image, toggle) {
   }
 
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-  let playing = !reduced.matches;
+  let playing = true;
   let visible = false;
   let time = 0;
   let lastFrame = 0;
   let frame = 0;
+  let scrollTimer = 0;
 
   function animate(now) {
     if (now - lastFrame >= 30) {
@@ -277,7 +289,7 @@ function startCoverMotion(canvas, image, toggle) {
 
   function updatePlayback() {
     toggle.textContent = playing ? "Pause animation" : "Play animation";
-    if (playing && visible && !document.hidden) {
+    if (playing && visible && !document.hidden && !scrollTimer) {
       if (!frame) frame = requestAnimationFrame(animate);
     } else {
       cancelAnimationFrame(frame);
@@ -295,9 +307,18 @@ function startCoverMotion(canvas, image, toggle) {
     updatePlayback();
   });
   reduced.addEventListener("change", () => {
-    playing = !reduced.matches;
+    if (reduced.matches) playing = false;
     updatePlayback();
   });
+  window.addEventListener("scroll", () => {
+    if (!playing || !visible) return;
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      scrollTimer = 0;
+      updatePlayback();
+    }, 150);
+    if (frame) updatePlayback();
+  }, { passive: true });
   document.addEventListener("visibilitychange", updatePlayback);
   toggle.hidden = false;
   updatePlayback();

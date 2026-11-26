@@ -288,7 +288,10 @@ function initReferences(references) {
   });
   loadLocation();
   render();
-  if (!location.hash && location.search) library.scrollIntoView({behavior: "instant"});
+  const query = new URLSearchParams(location.search);
+  if (!location.hash && ["page", ...Object.keys(inputs)].some((key) => query.has(key))) {
+    library.scrollIntoView({behavior: "instant"});
+  }
 }
 
 if (window.surveyData) {
