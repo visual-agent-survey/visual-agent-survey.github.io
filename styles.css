@@ -87,7 +87,7 @@ ul, ol { padding: 0; margin: 0; }
 .header .main-nav a:is(:hover, [aria-current="location"]), .header .header-link:hover { color: #fff; }
 .header[data-reading] {
   color: var(--ink);
-  background: linear-gradient(var(--violet-50), var(--violet-50)) center / var(--page-width) 100% no-repeat var(--frame-bg);
+  background: linear-gradient(var(--paper), var(--paper)) center / var(--page-width) 100% no-repeat var(--frame-bg);
 }
 .header[data-reading] :is(.brand-light, .main-nav a, .header-link span) { color: var(--violet-600); }
 .header[data-reading] .header-link { border-color: var(--violet-200); }
