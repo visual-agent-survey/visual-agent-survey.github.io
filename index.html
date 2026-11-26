@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A survey of visual agents, their models and harnesses, and how they learn from experience across tasks and update rounds.">
-  <meta name="theme-color" content="#9775fa">
+  <meta name="theme-color" content="#121f33">
   <title>Visual Agents Survey — Harness, Self-Evolution & RSI</title>
   <link rel="icon" href="assets/survey-robot.png" type="image/png">
-  <link rel="stylesheet" href="styles.css?v=aligned-brand">
+  <link rel="stylesheet" href="styles.css?v=clean-moon-cover">
   <script src="data.js" defer></script>
   <script src="app.js?v=survey-layout" defer></script>
-  <script src="cover-motion.js?v=white-level-previews" defer></script>
+  <script src="cover-motion.js?v=clean-moon-cover" defer></script>
   <script src="assets/vendor/lenis-1.3.28.min.js" defer></script>
-  <script src="scroll-feedback.js?v=section-navigation" defer></script>
+  <script src="scroll-feedback.js?v=scroll-reveal" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#survey">Skip to the survey</a>
@@ -42,26 +42,16 @@
             <div class="hero-actions">
               <a class="button button-primary" href="assets/visual-agents-survey.pdf" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
               <a class="button button-outline" href="#taxonomy">Explore the taxonomy <span aria-hidden="true">↓</span></a>
-              <a class="hero-text-link" href="#citation">BibTeX <span aria-hidden="true">↓</span></a>
-              <a class="hero-text-link" href="https://github.com/heshuting555/Awesome-Visual-Agent" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+              <a class="button button-outline" href="#citation">BibTeX <span aria-hidden="true">↓</span></a>
+              <a class="button button-outline" href="https://github.com/heshuting555/Awesome-Visual-Agent" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
             </div>
           </div>
           <div class="hero-visual">
             <figure class="hero-art">
-              <div class="hero-window" data-scroll-stage>
-                <div class="hero-image" data-scroll-layer="hero">
-                  <img src="assets/survey-cover-orbits.webp" width="1536" height="1024" fetchpriority="high" alt="An engraved indigo planet, with a space probe tracing orbital paths toward a distant star">
+              <div class="hero-window">
+                <div class="hero-image">
+                  <img src="assets/survey-cover-moonlit.webp" width="2172" height="724" fetchpriority="high" alt="A silver-blue moon rising above mist and dark reflective water">
                   <canvas id="cover-motion" aria-hidden="true"></canvas>
-                  <dl class="cover-foundations" aria-label="Visual agent foundations">
-                    <div class="cover-model">
-                      <dt><canvas class="cover-foundation-icon" width="64" height="64" aria-hidden="true"></canvas>Visual models</dt>
-                      <dd>Perception · Planning · Output</dd>
-                    </div>
-                    <div class="cover-harness">
-                      <dt><canvas class="cover-foundation-icon" width="64" height="64" aria-hidden="true"></canvas>Agent harness</dt>
-                      <dd>Orchestration · Memory · Skills<br>Tools · Monitoring &amp; recovery</dd>
-                    </div>
-                  </dl>
                 </div>
               </div>
               <figcaption>
@@ -100,7 +90,7 @@
         </nav>
       </section>
 
-      <section id="survey" class="section shell" aria-labelledby="survey-title">
+      <section id="survey" data-scroll-reveal class="section shell" aria-labelledby="survey-title">
         <div class="section-heading overview-heading">
           <div>
             <p class="kicker">The survey</p>
@@ -128,12 +118,12 @@
       <div class="feature-band">
         <section id="taxonomy" class="section taxonomy-section" aria-labelledby="taxonomy-title">
           <div class="shell">
-            <div class="section-heading">
+            <div class="section-heading" data-scroll-reveal>
               <div><p class="kicker">Taxonomy</p><h2 id="taxonomy-title">What changes, and when?</h2></div>
               <p>Compare a fixed workflow with three levels of experience-driven change, from a revised action in the current task to a revised updater that shapes later rounds.</p>
             </div>
             <div class="level-stack">
-              <article class="level-card" id="level-0" aria-labelledby="level-title-0">
+              <article class="level-card" id="level-0" data-scroll-reveal aria-labelledby="level-title-0">
                 <div class="level-summary">
                   <h3 id="level-title-0"><span class="level-badge">L0</span>Fixed workflow</h3>
                   <p>The agent selects a workflow from the goal and initial observations. As it runs, new observations supply inputs to the scheduled operations and the working state records progress. The selected workflow stays fixed for the task.</p>
@@ -151,7 +141,7 @@
                 </div>
               </article>
 
-              <article class="level-card" id="level-1" aria-labelledby="level-title-1">
+              <article class="level-card" id="level-1" data-scroll-reveal aria-labelledby="level-title-1">
                 <div class="level-summary">
                   <h3 id="level-title-1"><span class="level-badge">L1</span>Within-task adaptation</h3>
                   <p>Observations and execution feedback can change how the agent handles a task already in progress. It may gather missing visual evidence, repair a plan, choose a different tool, or refine a proposed output before the task ends.</p>
@@ -174,7 +164,7 @@
                 </div>
               </article>
 
-              <article class="level-card" id="level-2" aria-labelledby="level-title-2">
+              <article class="level-card" id="level-2" data-scroll-reveal aria-labelledby="level-title-2">
                 <div class="level-summary">
                   <h3 id="level-title-2"><span class="level-badge">L2</span>Self-evolution</h3>
                   <p>Experience changes resources that the agent retains across tasks or training rounds. A later attempt can use a better model, retrieve a consolidated memory, invoke a revised skill, or follow an updated workflow.</p>
@@ -197,7 +187,7 @@
                 </div>
               </article>
 
-              <article class="level-card" id="level-3" aria-labelledby="level-title-3">
+              <article class="level-card" id="level-3" data-scroll-reveal aria-labelledby="level-title-3">
                 <div class="level-summary">
                   <h3 id="level-title-3"><span class="level-badge">L3</span>Toward recursive self-improvement</h3>
                   <p>Experience revises part of the improvement process itself. The revised component then produces or guides a later retained update, creating a link between how the agent learns and what it learns next.</p>
@@ -223,7 +213,7 @@
           </div>
         </section>
 
-        <section id="benchmarks" class="section shell" aria-labelledby="benchmarks-title">
+        <section id="benchmarks" data-scroll-reveal class="section shell" aria-labelledby="benchmarks-title">
           <div class="section-heading">
             <div><p class="kicker">Evaluation</p><h2 id="benchmarks-title">Benchmarks &amp; evidence</h2></div>
             <p>Compare what different protocols measure, from immediate task performance to the effects of retained resources and revised improvement mechanisms.</p>
@@ -246,7 +236,7 @@
         </section>
 
         <section class="section future-section" id="outlook" aria-labelledby="future-title">
-          <div class="shell future-grid">
+          <div class="shell future-grid" data-scroll-reveal>
             <div><p class="kicker">Research outlook</p><h2 id="future-title">Open challenges</h2></div>
             <div class="outlook">
               <details><summary>Balance retention and generalization</summary><p>Preserve transferable visual knowledge and execution strategies while learning new tasks, object configurations, and environments.</p></details>
@@ -260,7 +250,7 @@
 
       </div>
 
-      <section id="references" class="section shell" aria-labelledby="references-title">
+      <section id="references" data-scroll-reveal class="section shell" aria-labelledby="references-title">
         <div class="section-heading">
           <div><p class="kicker">The literature</p><h2 id="references-title">Reference Library</h2></div>
           <p>Search the survey bibliography and filter by publication year, venue, or the section where a work is cited.</p>
@@ -296,7 +286,7 @@
 
     </div>
     <section class="citation-section" id="citation" aria-labelledby="citation-title">
-      <div class="shell citation-inner">
+      <div class="shell citation-inner" data-scroll-reveal>
         <div><p class="kicker">Citation</p><h2 id="citation-title">Cite this survey</h2><p>Manuscript citation.</p></div>
         <div class="citation-code">
           <button id="copy-citation" type="button" class="button button-lite">Copy BibTeX</button>

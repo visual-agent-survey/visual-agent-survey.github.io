@@ -18,6 +18,7 @@
     return layer ? [{ stage, layer, kind: layer.dataset.scrollLayer, top: 0, height: 0, offset: 0 }] : [];
   });
   const visible = new Set();
+  const revealPending = new Set();
   let chapterInset = 0;
   let viewport = 0;
   let frame = 0;
@@ -86,6 +87,17 @@
     lenis.start();
   }
 
+  function updateReveals() {
+    const triggerLine = window.innerHeight * .9;
+    for (const block of revealPending) {
+      const bounds = block.getBoundingClientRect();
+      if (!reduced.matches && bounds.top > triggerLine) continue;
+      if (!reduced.matches && bounds.bottom > 0) block.classList.add("reveal-entered");
+      block.classList.remove("reveal-pending");
+      revealPending.delete(block);
+    }
+  }
+
   function update() {
     frame = 0;
     const y = window.scrollY;
@@ -107,6 +119,8 @@
       active?.setAttribute("aria-current", "location");
       current = active;
     }
+
+    updateReveals();
 
     if (!desktopMotion.matches) return;
     for (const scene of visible) {
@@ -176,8 +190,23 @@
   });
   window.addEventListener("popstate", stopMomentum);
   desktopMotion.addEventListener("change", schedule);
-  reduced.addEventListener("change", syncLenis);
+  reduced.addEventListener("change", () => {
+    syncLenis();
+    updateReveals();
+  });
   finePointer.addEventListener("change", syncLenis);
+  if (!reduced.matches) {
+    const triggerLine = window.innerHeight * .9;
+    for (const block of document.querySelectorAll("[data-scroll-reveal]")) {
+      if (block.getBoundingClientRect().top <= triggerLine) continue;
+      block.classList.add("reveal-pending");
+      revealPending.add(block);
+    }
+    document.addEventListener("focusin", (event) => {
+      const block = event.target.closest?.("[data-scroll-reveal]");
+      if (revealPending.delete(block)) block.classList.remove("reveal-pending");
+    });
+  }
   measure();
   syncLenis();
 }
