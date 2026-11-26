@@ -3,7 +3,6 @@
 {
   const root = document.documentElement;
   const header = document.querySelector(".header");
-  const hero = document.querySelector(".hero");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const finePointer = matchMedia("(any-pointer: fine)");
   const scrollingKeys = new Set(["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "]);
@@ -13,7 +12,6 @@
   });
   let range = 1;
   let readingInset = 0;
-  let heroEnd = 0;
   let frame = 0;
   let current;
   let lenis;
@@ -22,7 +20,6 @@
     frame = 0;
     const y = window.scrollY;
     header.style.setProperty("--reading-progress", Math.min(1, Math.max(0, y / range)).toFixed(4));
-    header.toggleAttribute("data-past-hero", y >= heroEnd);
     let active;
     for (const { link, top } of nav) {
       if (y + readingInset >= top) active = link;
@@ -43,10 +40,8 @@
     const y = window.scrollY;
     range = Math.max(1, root.scrollHeight - root.clientHeight);
     readingInset = headerHeight + Math.min(120, innerHeight * .2);
-    heroEnd = y + hero.getBoundingClientRect().bottom - headerHeight;
     for (const entry of nav) entry.top = y + entry.section.getBoundingClientRect().top;
     root.style.setProperty("--anchor-inset", `${Math.ceil(headerHeight) + 14}px`);
-    root.style.setProperty("--hero-header-height", `${headerHeight}px`);
     schedule();
   }
 
@@ -107,7 +102,7 @@
   // Recompute offsets when chapter content changes, then reuse them on scroll.
   if ("ResizeObserver" in window) {
     const layout = new ResizeObserver(measure);
-    for (const node of [document.body, header, ...Array.from(document.querySelectorAll("main > section"))]) {
+    for (const node of [document.body, header, ...Array.from(document.querySelectorAll("main > section, .reading-surface > section"))]) {
       layout.observe(node);
     }
   }
