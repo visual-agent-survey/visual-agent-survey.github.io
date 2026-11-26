@@ -13,7 +13,6 @@
     return layer ? [{ stage, layer, kind: layer.dataset.scrollLayer, top: 0, height: 0, offset: 0 }] : [];
   });
   const visible = new Set();
-  let scrollRange = 1;
   let chapterInset = 0;
   let viewport = 0;
   let frame = 0;
@@ -24,7 +23,6 @@
   function update() {
     frame = 0;
     const y = window.scrollY;
-    header.style.setProperty("--reading-progress", clamp(y / scrollRange, 0, 1).toFixed(4));
 
     let active;
     for (const { link, top } of chapters) {
@@ -57,7 +55,6 @@
     const headerHeight = header.getBoundingClientRect().height;
     const y = window.scrollY;
     viewport = innerHeight;
-    scrollRange = Math.max(1, root.scrollHeight - root.clientHeight);
     chapterInset = headerHeight + Math.min(120, viewport * .2);
     for (const chapter of chapters) chapter.top = y + chapter.section.getBoundingClientRect().top;
     for (const scene of scenes) {
@@ -89,6 +86,5 @@
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", measure, { passive: true });
   desktopMotion.addEventListener("change", schedule);
-  root.classList.add("has-scroll-feedback");
   measure();
 }
