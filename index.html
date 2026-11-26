@@ -7,11 +7,12 @@
   <meta name="theme-color" content="#1c112e">
   <title>Visual Agents Survey — Harness, Self-Evolution & RSI</title>
   <link rel="icon" href="assets/survey-robot.png" type="image/png">
-  <link rel="stylesheet" href="styles.css?v=deep-frame">
+  <link rel="stylesheet" href="styles.css?v=three-chapters">
   <script src="data.js" defer></script>
   <script src="app.js?v=survey-layout" defer></script>
   <script src="cover-motion.js?v=autoplay" defer></script>
-  <script src="scroll-feedback.js?v=parallax" defer></script>
+  <script src="assets/vendor/lenis-1.3.28.min.js" defer></script>
+  <script src="scroll-feedback.js?v=three-chapters" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#survey">Skip to the survey</a>
@@ -29,75 +30,76 @@
   </header>
 
   <main id="top">
-    <section class="hero" aria-labelledby="title">
-      <div class="shell hero-main">
-        <div class="hero-copy">
-          <div class="hero-heading">
-            <p class="kicker"><span class="signal" aria-hidden="true"></span> A survey on visual agents</p>
-            <h1 id="title">Seeing the Harness and <em>Self-Evolution</em> of Visual Agents</h1>
-            <p class="subtitle">Toward Recursive Self-Improvement</p>
-          </div>
-          <div class="hero-actions">
-            <a class="button button-primary" href="assets/visual-agents-survey.pdf" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
-            <a class="button button-outline" href="#taxonomy">Explore the taxonomy <span aria-hidden="true">↓</span></a>
-            <a class="hero-text-link" href="#citation">BibTeX <span aria-hidden="true">↓</span></a>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <figure class="hero-art">
-            <div class="hero-window" data-scroll-stage>
-              <div class="hero-image" data-scroll-layer="hero">
-                <img src="assets/survey-cover-orbits.webp" width="1536" height="1024" fetchpriority="high" alt="An engraved indigo planet, with a space probe tracing orbital paths toward a distant star">
-                <canvas id="cover-motion" aria-hidden="true"></canvas>
-                <dl class="cover-foundations" aria-label="Visual agent foundations">
-                  <div class="cover-model">
-                    <dt><canvas class="cover-foundation-icon" width="64" height="64" aria-hidden="true"></canvas>Visual models</dt>
-                    <dd>Perception · Planning · Output</dd>
-                  </div>
-                  <div class="cover-harness">
-                    <dt><canvas class="cover-foundation-icon" width="64" height="64" aria-hidden="true"></canvas>Agent harness</dt>
-                    <dd>Orchestration · Memory · Skills<br>Tools · Monitoring &amp; recovery</dd>
-                  </div>
-                </dl>
-              </div>
+    <div class="opening-surface">
+      <section class="hero" aria-labelledby="title">
+        <div class="shell hero-main">
+          <div class="hero-copy">
+            <div class="hero-heading">
+              <p class="kicker"><span class="signal" aria-hidden="true"></span> A survey on visual agents</p>
+              <h1 id="title">Seeing the Harness and <em>Self-Evolution</em> of Visual Agents</h1>
+              <p class="subtitle">Toward Recursive Self-Improvement</p>
             </div>
-            <figcaption>
-              <button id="cover-motion-toggle" class="cover-motion-toggle" type="button" hidden>Play animation</button>
-            </figcaption>
-          </figure>
+            <div class="hero-actions">
+              <a class="button button-primary" href="assets/visual-agents-survey.pdf" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
+              <a class="button button-outline" href="#taxonomy">Explore the taxonomy <span aria-hidden="true">↓</span></a>
+              <a class="hero-text-link" href="#citation">BibTeX <span aria-hidden="true">↓</span></a>
+              <a class="hero-text-link" href="https://github.com/heshuting555/Awesome-Visual-Agent" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <figure class="hero-art">
+              <div class="hero-window" data-scroll-stage>
+                <div class="hero-image" data-scroll-layer="hero">
+                  <img src="assets/survey-cover-orbits.webp" width="1536" height="1024" fetchpriority="high" alt="An engraved indigo planet, with a space probe tracing orbital paths toward a distant star">
+                  <canvas id="cover-motion" aria-hidden="true"></canvas>
+                  <dl class="cover-foundations" aria-label="Visual agent foundations">
+                    <div class="cover-model">
+                      <dt><canvas class="cover-foundation-icon" width="64" height="64" aria-hidden="true"></canvas>Visual models</dt>
+                      <dd>Perception · Planning · Output</dd>
+                    </div>
+                    <div class="cover-harness">
+                      <dt><canvas class="cover-foundation-icon" width="64" height="64" aria-hidden="true"></canvas>Agent harness</dt>
+                      <dd>Orchestration · Memory · Skills<br>Tools · Monitoring &amp; recovery</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+              <figcaption>
+                <button id="cover-motion-toggle" class="cover-motion-toggle" type="button" hidden>Play animation</button>
+              </figcaption>
+            </figure>
+          </div>
         </div>
-      </div>
-      <div class="hero-credit shell">
-        <ul class="authors" aria-label="Authors">
-          <li>Dong Chen<sup>1</sup></li><li>Shuai Ge<sup>1</sup></li><li>Yu Fu<sup>1</sup></li><li>Xiangyu Ren<sup>1</sup></li><li>Zhihao Zhang<sup>1</sup></li><li>Hao Wang<sup>2</sup></li><li>Changshuo Wang<sup>3</sup></li><li>Jiayi Ji<sup>4</sup></li><li>Henghui Ding<sup>5</sup></li><li>Shuting He<sup>1</sup></li>
-        </ul>
-        <p class="affiliations"><span><sup>1</sup> SUFE</span><span><sup>2</sup> MBZUAI</span><span><sup>3</sup> UCL</span><span><sup>4</sup> Xiamen University</span><span><sup>5</sup> Fudan University</span></p>
-      </div>
-      <nav class="hero-index shell" aria-label="Survey levels">
-        <a href="#level-0">
-          <canvas class="cover-level-art" width="440" height="208" aria-hidden="true"></canvas>
-          <span class="cover-level-title"><b>L0</b>Fixed workflow</span>
-          <small>Follow one route</small>
-        </a>
-        <a href="#level-1">
-          <canvas class="cover-level-art" width="440" height="208" aria-hidden="true"></canvas>
-          <span class="cover-level-title"><b>L1</b>Within-task adaptation</span>
-          <small>Reroute from feedback</small>
-        </a>
-        <a href="#level-2">
-          <canvas class="cover-level-art" width="440" height="208" aria-hidden="true"></canvas>
-          <span class="cover-level-title"><b>L2</b>Self-evolution</span>
-          <small>Reuse updates across tasks</small>
-        </a>
-        <a href="#level-3">
-          <canvas class="cover-level-art" width="440" height="208" aria-hidden="true"></canvas>
-          <span class="cover-level-title"><b>L3</b>Toward RSI</span>
-          <small>Improve the updater</small>
-        </a>
-      </nav>
-    </section>
+        <div class="hero-credit shell">
+          <ul class="authors" aria-label="Authors">
+            <li>Dong Chen<sup>1</sup></li><li>Shuai Ge<sup>1</sup></li><li>Yu Fu<sup>1</sup></li><li>Xiangyu Ren<sup>1</sup></li><li>Zhihao Zhang<sup>1</sup></li><li>Hao Wang<sup>2</sup></li><li>Changshuo Wang<sup>3</sup></li><li>Jiayi Ji<sup>4</sup></li><li>Henghui Ding<sup>5</sup></li><li>Shuting He<sup>1</sup></li>
+          </ul>
+          <p class="affiliations"><span><sup>1</sup> SUFE</span><span><sup>2</sup> MBZUAI</span><span><sup>3</sup> UCL</span><span><sup>4</sup> Xiamen University</span><span><sup>5</sup> Fudan University</span></p>
+        </div>
+        <nav class="hero-index shell" aria-label="Survey levels">
+          <a href="#level-0">
+            <canvas class="cover-level-art" width="440" height="208" aria-hidden="true"></canvas>
+            <span class="cover-level-title"><b>L0</b>Fixed workflow</span>
+            <small>Follow one route</small>
+          </a>
+          <a href="#level-1">
+            <canvas class="cover-level-art" width="440" height="208" aria-hidden="true"></canvas>
+            <span class="cover-level-title"><b>L1</b>Within-task adaptation</span>
+            <small>Reroute from feedback</small>
+          </a>
+          <a href="#level-2">
+            <canvas class="cover-level-art" width="440" height="208" aria-hidden="true"></canvas>
+            <span class="cover-level-title"><b>L2</b>Self-evolution</span>
+            <small>Reuse updates across tasks</small>
+          </a>
+          <a href="#level-3">
+            <canvas class="cover-level-art" width="440" height="208" aria-hidden="true"></canvas>
+            <span class="cover-level-title"><b>L3</b>Toward RSI</span>
+            <small>Improve the updater</small>
+          </a>
+        </nav>
+      </section>
 
-    <div class="reading-surface">
       <section id="survey" class="section shell" aria-labelledby="survey-title">
         <div class="section-heading overview-heading">
           <div>
@@ -120,6 +122,9 @@
         </div>
       </section>
 
+    </div>
+
+    <div class="reading-surface">
       <div class="feature-band">
         <section id="taxonomy" class="section taxonomy-section" aria-labelledby="taxonomy-title">
           <div class="shell">
