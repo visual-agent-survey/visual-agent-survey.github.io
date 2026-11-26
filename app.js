@@ -1,6 +1,7 @@
 "use strict";
 
 const $ = (selector) => document.querySelector(selector);
+
 function element(tag, text, className) {
   const node = document.createElement(tag);
   if (text !== undefined) node.textContent = text;
@@ -61,9 +62,23 @@ function initBenchmarks(benchmarks) {
   const group = $("#benchmark-group");
   const search = $("#benchmark-search");
   const output = $("#benchmark-table");
+  const coverageSections = {
+    "III-A": ["subsection.3.1", "Adaptive Perception"],
+    "III-B": ["subsection.3.2", "Feedback-Driven Planning"],
+    "III-C": ["subsection.3.3", "Dynamic Harness Orchestration"],
+    "III-D": ["subsection.3.4", "Output and Action Refinement"],
+    "III-E": ["subsection.3.5", "Execution Monitoring and Control"],
+    "IV-A": ["subsection.4.1", "Model-Level Evolution"],
+    "IV-B": ["subsection.4.2", "Memory-Driven Capability Evolution"],
+    "IV-C": ["subsection.4.3", "Skill and Tool-Level Evolution"],
+    "IV-D": ["subsection.4.4", "Orchestration-Level Evolution"],
+    "IV-E": ["subsection.4.5", "Dynamic Data and Task Evolution"],
+    V: ["section.5", "Recursive Self-Improvement and Mechanism Design"],
+  };
+  const paper = "assets/visual-agents-survey.pdf?v=20261126#nameddest=";
   const items = benchmarks.map((row) => ({
     ...row,
-    text: normalized([row.name, row.setting, row.capability, row.focus].join(" ")),
+    text: normalized([row.name, row.setting, row.capability, row.focus, row.coverage, coverageSections[row.coverage]?.[1]].join(" ")),
   }));
   addOptions(group, new Set(items.map((row) => row.group)));
   $("#benchmark-total").textContent = String(items.length);
@@ -84,7 +99,7 @@ function initBenchmarks(benchmarks) {
     scroll.setAttribute("aria-label", "Benchmark table");
     const table = element("table");
     const header = table.createTHead().insertRow();
-    for (const title of ["Benchmark", "Setting", "Capability", "Focus", "Scale", "Resources"]) {
+    for (const title of ["Benchmark", "Setting", "Evaluation target", "Focus", "Scale", "Unit", "Coverage", "Resources"]) {
       const cell = element("th", title);
       cell.scope = "col";
       header.append(cell);
@@ -94,9 +109,22 @@ function initBenchmarks(benchmarks) {
       const row = body.insertRow();
       const name = element("th", benchmark.name);
       name.scope = "row";
+      if (benchmark.number) name.append(" ", resourceLink(
+        paper + "cite." + encodeURIComponent(benchmark.key), `[${benchmark.number}]`, `Reference ${benchmark.number} in the paper`,
+      ));
       row.append(name);
-      for (const field of ["setting", "capability", "focus", "size"]) {
+      for (const field of ["setting", "capability", "focus"]) {
         row.insertCell().textContent = benchmark[field];
+      }
+      row.insertCell().textContent = benchmark.scale ?? benchmark.size;
+      row.insertCell().textContent = benchmark.unit ?? "";
+      const coverage = row.insertCell();
+      const section = coverageSections[benchmark.coverage];
+      if (section) {
+        const [destination, label] = section;
+        const link = resourceLink(paper + destination, benchmark.coverage, `${benchmark.coverage}: ${label}`);
+        link.title = label;
+        coverage.append(link);
       }
       row.insertCell().append(resourceLinks(benchmark, benchmark.name));
     }

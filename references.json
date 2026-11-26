@@ -2511,7 +2511,7 @@
       "Benchmarks and evaluation"
     ],
     "paper": "https://arxiv.org/abs/2605.09410",
-    "code": "",
+    "code": "https://github.com/1018weijia/FR_Bench",
     "data": ""
   },
   {
@@ -3655,8 +3655,8 @@
       "Benchmarks and evaluation"
     ],
     "paper": "https://arxiv.org/abs/2605.21605",
-    "code": "",
-    "data": ""
+    "code": "https://github.com/MeiGen-AI/GenEvolve",
+    "data": "https://huggingface.co/datasets/MeiGen-AI/GenEvolve-Data-Bench"
   },
   {
     "number": 148,
@@ -5107,7 +5107,7 @@
       "Benchmarks and evaluation"
     ],
     "paper": "https://arxiv.org/abs/2609.22055",
-    "code": "",
+    "code": "https://github.com/object814/Compositional-Continual-Learning-Benchmark",
     "data": ""
   },
   {
@@ -5456,8 +5456,8 @@
       "Research outlook"
     ],
     "paper": "https://arxiv.org/abs/2605.26820v3",
-    "code": "",
-    "data": ""
+    "code": "https://github.com/Agentic-Intelligence-Lab/ContinualVLA",
+    "data": "https://github.com/Agentic-Intelligence-Lab/RoboNever"
   },
   {
     "number": 221,
@@ -5767,7 +5767,7 @@
     ],
     "paper": "https://arxiv.org/abs/2306.03310",
     "code": "https://github.com/Lifelong-Robot-Learning/LIBERO",
-    "data": "https://huggingface.co/datasets/yifengzhu-hf/LIBERO-datasets"
+    "data": "https://libero-project.github.io/datasets"
   },
   {
     "number": 234,
@@ -5921,7 +5921,7 @@
     ],
     "paper": "https://arxiv.org/abs/2609.24124v2",
     "code": "https://github.com/leeibo/ActiveArena",
-    "data": "https://github.com/leeibo/ActiveArena/blob/main/task_config/eval_seed_task_whitelist.yml"
+    "data": "https://huggingface.co/datasets/leeibo/ActiveArena-Data"
   },
   {
     "number": 240,
@@ -5948,7 +5948,7 @@
     ],
     "paper": "https://openaccess.thecvf.com/content/CVPR2024/papers/Majumdar_OpenEQA_Embodied_Question_Answering_in_the_Era_of_Foundation_Models_CVPR_2024_paper.pdf",
     "code": "https://github.com/facebookresearch/open-eqa",
-    "data": "https://github.com/facebookresearch/open-eqa/blob/main/data/README.md"
+    "data": "https://github.com/facebookresearch/open-eqa"
   },
   {
     "number": 241,
@@ -6013,7 +6013,7 @@
     ],
     "paper": "https://arxiv.org/abs/2611.17955",
     "code": "https://github.com/McGill-NLP/webarena-pro",
-    "data": "https://huggingface.co/datasets/WebArena-Pro/WebArena-Pro"
+    "data": "https://huggingface.co/WebArena-Pro"
   },
   {
     "number": 243,
@@ -6060,8 +6060,8 @@
       "Benchmarks and evaluation"
     ],
     "paper": "https://aclanthology.org/2026.acl-long.2207/",
-    "code": "https://github.com/KeLes-Coding/LightManus_Jarvis",
-    "data": "https://github.com/KeLes-Coding/LightManus_Jarvis/tree/main/task"
+    "code": "https://github.com/KeLes-Coding/NatureGAIA",
+    "data": ""
   },
   {
     "number": 245,
@@ -6087,8 +6087,8 @@
       "Benchmarks and evaluation"
     ],
     "paper": "https://arxiv.org/abs/2601.02399",
-    "code": "",
-    "data": ""
+    "code": "https://github.com/jiaxin-ai/ProSoftArena",
+    "data": "https://github.com/jiaxin-ai/ProSoftArena"
   },
   {
     "number": 246,
@@ -6188,7 +6188,7 @@
     ],
     "paper": "https://arxiv.org/abs/2508.05405",
     "code": "https://github.com/XinrunXu/DeepPHY",
-    "data": "https://github.com/XinrunXu/DeepPHY/tree/main/res"
+    "data": ""
   },
   {
     "number": 250,
@@ -6239,7 +6239,7 @@
     ],
     "paper": "https://arxiv.org/abs/1912.01734",
     "code": "https://github.com/askforalfred/alfred",
-    "data": "https://github.com/askforalfred/alfred/blob/master/data/README.md"
+    "data": "https://github.com/askforalfred/alfred/tree/master/data"
   },
   {
     "number": 252,
@@ -6265,7 +6265,7 @@
     ],
     "paper": "https://arxiv.org/abs/2510.24563",
     "code": "https://github.com/X-PLUG/OSWorld-MCP",
-    "data": ""
+    "data": "https://github.com/X-PLUG/OSWorld-MCP/tree/main/evaluation_examples"
   },
   {
     "number": 253,
@@ -6458,9 +6458,9 @@
     "sections": [
       "Benchmarks and evaluation"
     ],
-    "paper": "https://openaccess.thecvf.com/content/CVPR2025/html/Xue_ComfyBench_Benchmarking_LLM-based_Agents_in_ComfyUI_for_Autonomously_Designing_Collaborative_CVPR_2025_paper.html",
+    "paper": "https://arxiv.org/abs/2409.01392",
     "code": "https://github.com/xxyQwQ/ComfyBench",
-    "data": "https://github.com/xxyQwQ/ComfyBench/tree/main/dataset/benchmark"
+    "data": "https://github.com/xxyQwQ/ComfyBench/tree/main/dataset"
   },
   {
     "number": 261,
@@ -6627,7 +6627,7 @@
     "sections": [
       "Benchmarks and evaluation"
     ],
-    "paper": "https://openaccess.thecvf.com/content/CVPR2026/html/Ying_AGENTSAFE_Benchmarking_the_Safety_of_Embodied_Agents_on_Hazardous_Instructions_CVPR_2026_paper.html",
+    "paper": "https://arxiv.org/abs/2506.14697",
     "code": "",
     "data": ""
   },
@@ -6674,7 +6674,7 @@
     "sections": [
       "Benchmarks and evaluation"
     ],
-    "paper": "https://github.com/ErrorRecoveryBenchmark/ErrorRecoveryBenchmark/blob/main/EVALUATION.md",
+    "paper": "",
     "code": "https://github.com/ErrorRecoveryBenchmark/ErrorRecoveryBenchmark",
     "data": "https://huggingface.co/datasets/ErrorRecovery/ErrorRecoveryBenchmark"
   },
@@ -6699,7 +6699,7 @@
     ],
     "paper": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/e185c7be603426028c32ae1003a59d78-Abstract-Conference.html",
     "code": "https://github.com/PKU-Alignment/SafeVLA",
-    "data": "https://github.com/PKU-Alignment/SafeVLA\\#21-downloading-assets-annotations-and-houses"
+    "data": "https://huggingface.co/SafetyEmbodiedAI"
   },
   {
     "number": 270,
@@ -6720,7 +6720,7 @@
     ],
     "paper": "https://proceedings.mlr.press/v199/powers22b.html",
     "code": "https://github.com/AGI-Labs/continual_rl",
-    "data": "https://github.com/AGI-Labs/continual_rl/blob/develop/docs/BENCHMARK_INSTALL.md\\#chores"
+    "data": ""
   },
   {
     "number": 271,
@@ -6792,7 +6792,7 @@
       "Benchmarks and evaluation"
     ],
     "paper": "https://arxiv.org/abs/2607.11312",
-    "code": "https://huggingface.co/datasets/tsinghua-ee/SLVMBench/blob/main/concat_video.py",
+    "code": "",
     "data": "https://huggingface.co/datasets/tsinghua-ee/SLVMBench"
   },
   {
@@ -6959,7 +6959,7 @@
     ],
     "paper": "https://arxiv.org/abs/2210.03087",
     "code": "https://github.com/jacobkrantz/IVLN-CE",
-    "data": "https://github.com/jacobkrantz/IVLN-CE\\#setup"
+    "data": ""
   },
   {
     "number": 281,
@@ -6982,7 +6982,7 @@
     "sections": [
       "Benchmarks and evaluation"
     ],
-    "paper": "https://arxiv.org/html/2610.13021",
+    "paper": "https://arxiv.org/abs/2610.13021",
     "code": "https://github.com/PKU-VaLuE-Lab/EmbodiedCLBench",
     "data": "https://huggingface.co/datasets/PKU-VaLuE-Lab/EmbodiedCLBench"
   },
@@ -7007,7 +7007,7 @@
       "Benchmarks and evaluation"
     ],
     "paper": "https://arxiv.org/abs/2610.18792",
-    "code": "",
+    "code": "https://github.com/Self-Evolving-Agentic-Robotics/SEAR",
     "data": ""
   },
   {
@@ -7035,7 +7035,7 @@
       "Research outlook"
     ],
     "paper": "https://arxiv.org/abs/2610.26848v1",
-    "code": "",
+    "code": "https://github.com/PhysRSI-Eval/PhysRSI-Eval-code",
     "data": ""
   },
   {
@@ -7078,12 +7078,12 @@
     ],
     "paper": "https://arxiv.org/abs/2611.02797",
     "code": "https://github.com/theseus-labs-rsi/SelfImprove-Bench",
-    "data": "https://github.com/theseus-labs-rsi/SelfImprove-Bench/tree/main/configs/main"
+    "data": ""
   },
   {
     "number": 286,
     "key": "lee2026curate",
-    "title": "CURATE: Automatic Curriculum Learning for Reinforcement Learning Agents through Competence-Based Curriculum Policy Search",
+    "title": "CURATE: Automatic Curriculum Learning for Reinforcement Learning Agents through Competence-Based Curriculum Policy Search in Structured Task Spaces",
     "authors": [
       "Tabitha Edith Lee",
       "Nan Rosemary Ke",
@@ -7096,14 +7096,14 @@
       "Glen Berseth"
     ],
     "year": "2026",
-    "type": "Other",
-    "venue": "",
+    "type": "Journal",
+    "venue": "TMLR",
     "sections": [
       "Benchmarks and evaluation"
     ],
     "paper": "https://openreview.net/forum?id=DlnvWfoIgv",
     "code": "https://github.com/montrealrobotics/curate-code",
-    "data": "https://github.com/montrealrobotics/procgen-curriculum"
+    "data": ""
   },
   {
     "number": 287,
@@ -7157,7 +7157,7 @@
     ],
     "paper": "https://arxiv.org/abs/2608.20318v1",
     "code": "https://github.com/Einsia/AI4AI-Bench",
-    "data": "https://github.com/Einsia/AI4AI-Bench/blob/main/tools/docs/assets.md"
+    "data": ""
   },
   {
     "number": 289,
@@ -7172,7 +7172,7 @@
     "sections": [
       "Benchmarks and evaluation"
     ],
-    "paper": "https://rsi-exam.ai/tasks/clevr_cogent_grpo_qwen2vl.html",
+    "paper": "https://rsi-exam.ai/",
     "code": "https://github.com/aiming-lab/RSI-Exam",
     "data": "https://huggingface.co/datasets/RSI-Exam/RSI-Exam"
   },
@@ -7199,7 +7199,7 @@
     ],
     "paper": "https://benchmarks.bespokelabs.ai/autoresearchexam/",
     "code": "https://github.com/bespokelabsai/AutoResearchExam",
-    "data": "https://github.com/bespokelabsai/AutoResearchExam"
+    "data": ""
   },
   {
     "number": 291,

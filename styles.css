@@ -267,6 +267,8 @@ sup { font-size: .67em; line-height: 0; margin-left: 2px; }
 .benchmark-scroll thead { position: sticky; top: 0; z-index: 1; background: var(--pale); }
 .benchmark-scroll tbody tr:nth-child(even) { background: var(--violet-50); }
 .benchmark-scroll tbody th { min-width: 130px; }
+.benchmark-scroll td:nth-last-child(2) { white-space: nowrap; }
+.benchmark-scroll :is(th, td) > a { color: var(--violet); text-decoration: underline; }
 .benchmark-scroll td:last-child { min-width: 126px; }
 
 .future-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 40px; }
