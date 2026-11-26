@@ -3,31 +3,49 @@
 {
   const root = document.documentElement;
   const header = document.querySelector(".header");
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-  const finePointer = matchMedia("(any-pointer: fine)");
-  const scrollingKeys = new Set(["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "]);
-  const nav = [...header.querySelectorAll('.main-nav a[href^="#"]')].flatMap((link) => {
+  const desktopMotion = matchMedia("(min-width: 761px) and (prefers-reduced-motion: no-preference)");
+  const chapters = [...header.querySelectorAll('.main-nav a[href^="#"]')].flatMap((link) => {
     const section = document.getElementById(link.hash.slice(1));
     return section ? [{ link, section, top: 0 }] : [];
   });
-  let range = 1;
-  let readingInset = 0;
+  const scenes = [...document.querySelectorAll("[data-scroll-stage]")].flatMap((stage) => {
+    const layer = stage.querySelector("[data-scroll-layer]");
+    return layer ? [{ stage, layer, kind: layer.dataset.scrollLayer, top: 0, height: 0, offset: 0 }] : [];
+  });
+  const visible = new Set();
+  let scrollRange = 1;
+  let chapterInset = 0;
+  let viewport = 0;
   let frame = 0;
   let current;
-  let lenis;
+
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
   function update() {
     frame = 0;
     const y = window.scrollY;
-    header.style.setProperty("--reading-progress", Math.min(1, Math.max(0, y / range)).toFixed(4));
+    header.style.setProperty("--reading-progress", clamp(y / scrollRange, 0, 1).toFixed(4));
+
     let active;
-    for (const { link, top } of nav) {
-      if (y + readingInset >= top) active = link;
+    for (const { link, top } of chapters) {
+      if (y + chapterInset >= top) active = link;
     }
     if (active !== current) {
       current?.removeAttribute("aria-current");
       active?.setAttribute("aria-current", "location");
       current = active;
+    }
+
+    if (!desktopMotion.matches) return;
+    for (const scene of visible) {
+      const center = scene.top - y + scene.height / 2;
+      const travel = scene.kind === "hero"
+        ? -Math.min(20, scene.height * .045) * clamp(y / (scene.top + scene.height), 0, 1)
+        : -10 * clamp((center - viewport / 2) / (viewport / 2 + scene.height / 2), -1, 1);
+      const offset = Math.round(travel * 10) / 10;
+      if (offset === scene.offset) continue;
+      scene.offset = offset;
+      scene.layer.style.setProperty("--scene-y", `${offset}px`);
     }
   }
 
@@ -38,77 +56,39 @@
   function measure() {
     const headerHeight = header.getBoundingClientRect().height;
     const y = window.scrollY;
-    range = Math.max(1, root.scrollHeight - root.clientHeight);
-    readingInset = headerHeight + Math.min(120, innerHeight * .2);
-    for (const entry of nav) entry.top = y + entry.section.getBoundingClientRect().top;
+    viewport = innerHeight;
+    scrollRange = Math.max(1, root.scrollHeight - root.clientHeight);
+    chapterInset = headerHeight + Math.min(120, viewport * .2);
+    for (const chapter of chapters) chapter.top = y + chapter.section.getBoundingClientRect().top;
+    for (const scene of scenes) {
+      const bounds = scene.stage.getBoundingClientRect();
+      scene.top = y + bounds.top;
+      scene.height = bounds.height;
+    }
     root.style.setProperty("--anchor-inset", `${Math.ceil(headerHeight) + 14}px`);
     schedule();
   }
 
-  function syncScroll() {
-    if (reduced.matches || !finePointer.matches) {
-      lenis?.destroy();
-      lenis = undefined;
-    } else if (!lenis && window.Lenis) {
-      lenis = new window.Lenis({
-        autoRaf: true,
-        lerp: .32,
-        prevent: (node) => node.matches(".benchmark-scroll, select, textarea"),
-      });
-    }
-  }
-
-  function stopMomentum() {
-    if (lenis?.isScrolling !== "smooth") return;
-    lenis.stop();
-    lenis.start();
-  }
-
-  window.addEventListener("click", (event) => {
-    if (event.button === 0 && !event.defaultPrevented && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey &&
-        event.target instanceof Element && event.target.closest('a[href^="#"]')) stopMomentum();
-  });
-  window.addEventListener("keydown", (event) => {
-    if (scrollingKeys.has(event.key) && event.target instanceof Element &&
-        !event.target.closest("input, select, textarea, [contenteditable]")) stopMomentum();
-  });
-  window.addEventListener("popstate", stopMomentum);
-  reduced.addEventListener("change", syncScroll);
-  finePointer.addEventListener("change", syncScroll);
-
-  const reveals = new Set();
-  if ("IntersectionObserver" in window && "animate" in Element.prototype) {
-    const observer = new IntersectionObserver((entries) => {
+  if ("IntersectionObserver" in window) {
+    const byStage = new Map(scenes.map((scene) => [scene.stage, scene]));
+    const visibility = new IntersectionObserver((entries) => {
       for (const { target, isIntersecting } of entries) {
-        if (!isIntersecting) continue;
-        observer.unobserve(target);
-        if (reduced.matches || target.matches(":focus-within")) continue;
-        const animation = target.animate(
-          [{ opacity: .86, transform: "translateY(6px)" }, { opacity: 1, transform: "translateY(0)" }],
-          { duration: 200, easing: "ease-out" },
-        );
-        reveals.add(animation);
-        animation.finished.then(() => reveals.delete(animation), () => reveals.delete(animation));
+        const scene = byStage.get(target);
+        if (isIntersecting) visible.add(scene);
+        else visible.delete(scene);
       }
-    }, { threshold: .08 });
-    for (const target of document.querySelectorAll(".section-heading, .level-card, .future-grid")) {
-      observer.observe(target);
-    }
-    reduced.addEventListener("change", () => {
-      if (reduced.matches) for (const animation of reveals) animation.cancel();
-    });
+      schedule();
+    }, { rootMargin: "90px 0px" });
+    for (const { stage } of scenes) visibility.observe(stage);
   }
 
-  // Recompute offsets when chapter content changes, then reuse them on scroll.
   if ("ResizeObserver" in window) {
     const layout = new ResizeObserver(measure);
-    for (const node of [document.body, header, ...Array.from(document.querySelectorAll("main > section, .reading-surface > section"))]) {
-      layout.observe(node);
-    }
+    for (const node of [header, ...document.querySelectorAll("main section")]) layout.observe(node);
   }
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", measure, { passive: true });
+  desktopMotion.addEventListener("change", schedule);
   root.classList.add("has-scroll-feedback");
   measure();
-  syncScroll();
 }
