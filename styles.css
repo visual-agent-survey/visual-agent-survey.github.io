@@ -108,7 +108,7 @@ ul, ol { padding: 0; margin: 0; }
 .hero h1 { font-size: clamp(36px, 4.8vw, 70px); font-weight: 450; letter-spacing: -.044em; line-height: .99; text-wrap: balance; }
 .hero h1 em { color: var(--lilac-light); font-style: normal; }
 .hero :is(.subtitle, .affiliations, .hero-index small) { color: var(--lilac-light); }
-.subtitle { margin-top: 17px; font-size: clamp(16px, 1.6vw, 21px); }
+.subtitle { display: block; margin-top: 17px; font-size: clamp(16px, 1.6vw, 21px); font-weight: 400; letter-spacing: normal; line-height: 1.5; }
 .hero-credit { display: grid; gap: 5px; margin-top: clamp(26px, 4vw, 43px); padding-top: 20px; border-top: 1px solid var(--violet-surface-line); align-items: center; }
 .authors { list-style: none; display: flex; flex-wrap: wrap; column-gap: 12px; row-gap: 4px; font-size: 13px; }
 .authors li, .affiliations span { white-space: nowrap; }

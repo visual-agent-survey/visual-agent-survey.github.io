@@ -649,8 +649,8 @@
       "Introduction",
       "L3 · Toward RSI"
     ],
-    "paper": "https://arxiv.org/html/2511.19900",
-    "code": "https://github.com/aiming-lab/Agent0/tree/main/Agent0-VL",
+    "paper": "https://arxiv.org/abs/2511.19900",
+    "code": "https://github.com/aiming-lab/Agent0",
     "data": ""
   },
   {
@@ -2669,8 +2669,7 @@
     "venue": "arXiv",
     "sections": [
       "Introduction",
-      "L2 · Self-evolution",
-      "Benchmarks and evaluation"
+      "L2 · Self-evolution"
     ],
     "paper": "https://arxiv.org/abs/2607.10350v3",
     "code": "",
@@ -3998,7 +3997,7 @@
       "L3 · Toward RSI"
     ],
     "paper": "https://arxiv.org/abs/2608.30760",
-    "code": "",
+    "code": "https://github.com/BAAI-Agents/PRACTICE",
     "data": ""
   },
   {

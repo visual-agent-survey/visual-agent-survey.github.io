@@ -73,9 +73,9 @@ function initBenchmarks(benchmarks) {
     "IV-C": ["subsection.4.3", "Skill and Tool-Level Evolution"],
     "IV-D": ["subsection.4.4", "Orchestration-Level Evolution"],
     "IV-E": ["subsection.4.5", "Dynamic Data and Task Evolution"],
-    V: ["section.5", "Recursive Self-Improvement and Mechanism Design"],
+    V: ["section.5", "RSI and Mechanism Design"],
   };
-  const paper = "assets/visual-agents-survey.pdf?v=20261126#nameddest=";
+  const paper = "assets/visual-agents-survey.pdf?v=20261128#nameddest=";
   const items = benchmarks.map((row) => ({
     ...row,
     text: normalized([row.name, row.setting, row.capability, row.focus, row.coverage, coverageSections[row.coverage]?.[1]].join(" ")),

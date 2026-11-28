@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A survey of visual agents, their models and harnesses, and how they learn from experience across tasks and update rounds.">
+  <meta name="description" content="A survey of visual agents and their models and harnesses, covering within-task adaptation, self-evolution, and work toward recursive self-improvement.">
   <meta name="theme-color" content="#352459">
-  <title>Visual Agents in the Era of Self-Evolution: Toward Recursive Self-Improvement</title>
+  <title>Vision in the Era of Agents: Toward Recursive Self-Improvement</title>
   <link rel="icon" href="assets/survey-robot.png" type="image/png">
-  <link rel="stylesheet" href="styles.css?v=paper-20261126">
-  <script src="data.js?v=paper-20261126" defer></script>
-  <script src="app.js?v=paper-20261126" defer></script>
+  <link rel="stylesheet" href="styles.css?v=paper-20261128">
+  <script src="data.js?v=paper-20261128" defer></script>
+  <script src="app.js?v=paper-20261128" defer></script>
   <script src="cover-motion.js?v=centered-levels" defer></script>
   <script src="assets/vendor/lenis-1.3.28.min.js" defer></script>
   <script src="scroll-feedback.js?v=scroll-reveal" defer></script>
@@ -36,11 +36,12 @@
           <div class="hero-copy">
             <div class="hero-heading">
               <p class="kicker"><span class="signal" aria-hidden="true"></span> A survey on visual agents</p>
-              <h1 id="title">Visual Agents in the Era of <em>Self-Evolution</em></h1>
-              <p class="subtitle">Toward Recursive Self-Improvement</p>
+              <h1 id="title">Vision in the Era of <em>Agents</em>:
+                <span class="subtitle">Toward Recursive Self-Improvement</span>
+              </h1>
             </div>
             <div class="hero-actions">
-              <a class="button button-outline" href="assets/visual-agents-survey.pdf?v=20261126" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
+              <a class="button button-outline" href="assets/visual-agents-survey.pdf?v=20261128" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a>
               <a class="button button-outline" href="#taxonomy">Explore the taxonomy <span aria-hidden="true">↓</span></a>
               <a class="button button-outline" href="#citation">BibTeX <span aria-hidden="true">↓</span></a>
               <a class="button button-outline" href="https://github.com/heshuting555/Awesome-Visual-Agent" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
@@ -110,8 +111,8 @@
         </div>
         <div class="overview-grid">
           <figure class="paper-figure">
-            <a class="figure-window" data-scroll-stage href="assets/foundations.webp?v=20261126" target="_blank" rel="noopener"><img data-scroll-layer="figure" src="assets/foundations.webp?v=20261126" width="2068" height="700" loading="lazy" alt="The paper's diagram of visual agent foundations and the four levels of adaptation and evolution"></a>
-            <figcaption>Figure 2. Visual agent foundations and levels of adaptation and evolution <a href="assets/visual-agents-survey.pdf?v=20261126#nameddest=figure.2" target="_blank" rel="noopener">View in the paper ↗</a></figcaption>
+            <a class="figure-window" data-scroll-stage href="assets/foundations.webp?v=20261128" target="_blank" rel="noopener"><img data-scroll-layer="figure" src="assets/foundations.webp?v=20261128" width="2068" height="700" loading="lazy" alt="The paper's diagram of visual agent foundations and the four levels of adaptation and evolution"></a>
+            <figcaption>Figure 2. Visual agent foundations and levels of adaptation and evolution <a href="assets/visual-agents-survey.pdf?v=20261128#nameddest=figure.2" target="_blank" rel="noopener">View in the paper ↗</a></figcaption>
           </figure>
           <ul class="domains" aria-label="Visual domains covered">
             <li><span class="domain-icon"><img src="assets/domain-visual-understanding.png" alt=""></span>Visual understanding</li>
@@ -147,7 +148,7 @@
                 <div class="level-detail">
                   <h4>How it works</h4>
                   <p>The harness runs the selected sequence of perception, reasoning, and tool operations. Inputs and intermediate results can vary across runs while the workflow remains the same.</p>
-                  <p class="level-example"><strong>ViperGPT <a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=cite.ICCV2023ViperGPT" target="_blank" rel="noopener">[12]</a>.</strong> The system generates a program for a visual question and executes it using vision modules. The selected program serves as the fixed workflow for that question.</p>
+                  <p class="level-example"><strong>ViperGPT <a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=cite.ICCV2023ViperGPT" target="_blank" rel="noopener">[12]</a>.</strong> The system generates a program for a visual question and executes it using vision modules. The selected program serves as the fixed workflow for that question.</p>
                 </div>
               </article>
 
@@ -171,7 +172,7 @@
                     <li><strong>Output and Action Refinement</strong> revises proposed outputs or actions using feedback about their quality or feasibility.</li>
                     <li><strong>Execution Monitoring and Control</strong> tracks task state, verifies progress, and intervenes when execution deviates from its goal.</li>
                   </ul>
-                  <p class="level-example"><strong>Inner Monologue <a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=cite.added_huang2023innermonologue" target="_blank" rel="noopener">[53]</a>.</strong> The language planner uses updated object detections and success feedback to revise manipulation subgoals as previously occluded objects become visible.</p>
+                  <p class="level-example"><strong>Inner Monologue <a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=cite.added_huang2023innermonologue" target="_blank" rel="noopener">[53]</a>.</strong> The language planner uses updated object detections and success feedback to revise manipulation subgoals as previously occluded objects become visible.</p>
                 </div>
               </article>
 
@@ -195,7 +196,7 @@
                     <li><strong>Orchestration-Level Evolution</strong> retains revised workflows, routing strategies, or harness configurations.</li>
                     <li><strong>Dynamic Data and Task Evolution</strong> changes which experiences or tasks are collected, generated, or selected for later learning.</li>
                   </ul>
-                  <p class="level-example"><strong>ViLoMem <a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=cite.CVPR2026ViLoMem" target="_blank" rel="noopener">[107]</a>.</strong> It learns and consolidates separate visual and logical error guidelines, then retrieves relevant guidance by image matching and question-conditioned reranking.</p>
+                  <p class="level-example"><strong>ViLoMem <a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=cite.CVPR2026ViLoMem" target="_blank" rel="noopener">[107]</a>.</strong> It learns and consolidates separate visual and logical error guidelines, then retrieves relevant guidance by image matching and question-conditioned reranking.</p>
                 </div>
               </article>
 
@@ -218,23 +219,23 @@
                     <li><strong>Evolving Update Mechanisms</strong> reuses a revised procedure for designing or applying subsequent interventions.</li>
                     <li><strong>Evolving Evaluation and Validation</strong> reuses a revised evaluator or verifier to guide later training or decisions about which updates to adopt.</li>
                   </ul>
-                  <p class="level-example"><strong>GUI0 <a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=cite.ACL2026GUI0" target="_blank" rel="noopener">[151]</a>.</strong> Rollout success rates reward a curriculum agent for selecting tasks near the actor’s capability boundary. The revised curriculum agent generates tasks for the next round of actor training.</p>
+                  <p class="level-example"><strong>GUI0 <a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=cite.ACL2026GUI0" target="_blank" rel="noopener">[151]</a>.</strong> Rollout success rates reward a curriculum agent for selecting tasks near the actor’s capability boundary. The revised curriculum agent generates tasks for the next round of actor training.</p>
                 </div>
               </article>
             </div>
-            <p class="figure-link"><a class="text-link" href="assets/taxonomy.webp?v=20261126" target="_blank" rel="noopener">Figure 1 · Taxonomy of visual agent adaptation and evolution ↗</a><br><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=figure.3" target="_blank" rel="noopener">Figure 3 · Fixed-workflow reference and L1–L3 processes ↗</a></p>
+            <p class="figure-link"><a class="text-link" href="assets/taxonomy.webp?v=20261128" target="_blank" rel="noopener">Figure 1 · Taxonomy of visual agent adaptation and evolution ↗</a><br><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=figure.3" target="_blank" rel="noopener">Figure 3 · Fixed-workflow reference and L1–L3 processes ↗</a></p>
           </div>
         </section>
 
         <section id="benchmarks" data-scroll-reveal class="section shell" aria-labelledby="benchmarks-title">
           <div class="section-heading">
             <div><p class="kicker">Evaluation</p><h2 id="benchmarks-title">Benchmarks and Evaluation of Visual-Agent Evolution</h2></div>
-            <p>Compare what different protocols measure, from immediate task performance to the effects of retained resources and revised improvement mechanisms.</p>
+            <p>Compare protocols for task performance, capability changes after retained updates, and the effects of revising the updater itself.</p>
           </div>
           <div class="benchmark-intro">
-            <article><h3>Task-level performance</h3><p>Assess task success and how the agent achieves it, including grounded reasoning, planning and execution, output quality, recovery, and safety.</p><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=table.4" target="_blank" rel="noopener">Table IV ↗</a></article>
-            <article><h3>Self-evolution</h3><p>Measure capability acquisition after an update, retention on earlier tasks, and generalization or transfer under new conditions.</p><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=table.5" target="_blank" rel="noopener">Table V ↗</a></article>
-            <article><h3>Recursive self-improvement</h3><p>Trace a revised updater to a later retained update. When the revision procedure also evolves, trace its reuse, then use controlled comparisons to estimate the effect of the revisions.</p><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=table.6" target="_blank" rel="noopener">Table VI ↗</a></article>
+            <article><h3>Task-level performance</h3><p>Assess task success and how the agent achieves it, including grounded reasoning, planning and execution, output quality, recovery, and safety.</p><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=table.4" target="_blank" rel="noopener">Table IV ↗</a></article>
+            <article><h3>Self-evolution</h3><p>Measure capability acquisition after an update, retention on earlier tasks, and generalization or transfer under new conditions.</p><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=table.5" target="_blank" rel="noopener">Table V ↗</a></article>
+            <article><h3>Recursive self-improvement</h3><p>Assess whether revising the updater improves later updates using multi-round tests of reuse and mechanism-design tasks.</p><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=table.6" target="_blank" rel="noopener">Table VI ↗</a></article>
           </div>
           <details class="benchmark-browser" id="benchmark-browser">
             <summary>Browse <span id="benchmark-total">the</span> benchmarks and protocols</summary>
@@ -250,13 +251,13 @@
 
         <section class="section future-section" id="outlook" aria-labelledby="future-title">
           <div class="shell future-grid" data-scroll-reveal>
-            <div><p class="kicker">Research outlook</p><h2 id="future-title">Open Challenges and Future Directions</h2><p class="figure-link"><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261126#nameddest=section.7" target="_blank" rel="noopener">Read Section VII ↗</a></p></div>
+            <div><p class="kicker">Research outlook</p><h2 id="future-title">Open Challenges and Future Directions</h2><p class="figure-link"><a class="text-link" href="assets/visual-agents-survey.pdf?v=20261128#nameddest=section.7" target="_blank" rel="noopener">Read Section VII ↗</a></p></div>
             <div class="outlook">
               <details><summary>Balancing Capability Retention and Generalization</summary><p>Preserve useful visual knowledge and execution strategies across successive updates while adapting to new observations, objects, configurations, and goals. Recording when each skill applies could help agents retrieve, adapt, and recombine skills within interaction and memory budgets.</p></details>
               <details><summary>Preventing Objective Hacking in Visual Agent Evolution</summary><p>Apparent gains can come from exploiting evaluation objectives, environments, or tool interfaces, even under sandboxing. The paper calls for independent evaluation and task-specific authorization across update cycles and workflow reuse. It also discusses externally enforced safeguards, independent audits, and human oversight.</p></details>
               <details><summary>Maintaining Consistency in Long-Horizon Execution</summary><p>With incomplete observations or unexpected action effects, an agent must infer progress while staying aligned with the original goal. Tracking the evidence behind task milestones could help it reassess state and revise the remaining plan when earlier assumptions no longer hold.</p></details>
-              <details><summary>Verifying Genuine Recursive Self-Improvement</summary><p>Reusing a revised updater shows that it participates in a later update. The open question is whether it improves the update process over successive rounds. The paper proposes comparisons under matched experience and compute budgets, alongside tracing how a revision affects later data, feedback, and learning.</p></details>
-              <details><summary>Benchmark Development for Visual Agents</summary><p>Task outcomes and intermediate checks cannot by themselves establish how individual harness components contribute. The paper proposes combining task assessments, component-specific tests, and controlled interventions to compare capability development, reliability, and resource costs across successive updates.</p></details>
+              <details><summary>Verifying the Mechanisms of Recursive Self-Improvement</summary><p>The open question is whether revising the updater yields sustained benefits. The paper proposes comparing revised and original updaters under matched experience and resource budgets and tracing how the revisions affect later data, feedback, and learning.</p></details>
+              <details><summary>Benchmarking Development for Visual Agents</summary><p>The paper proposes combining task assessments, component-specific tests, and controlled interventions to measure how the harness contributes to capability development, reliability, and resource costs across successive updates.</p></details>
             </div>
           </div>
         </section>
@@ -304,12 +305,14 @@
         <div class="citation-code">
           <button id="copy-citation" type="button" class="button button-lite">Copy BibTeX</button>
           <pre><code id="bibtex"><span class="bib-entry">@unpublished</span>{chen_visual_agents,
-    <span class="bib-key">title</span>  = {<span class="bib-value">Visual Agents in the Era of Self-Evolution:
-              Toward Recursive Self-Improvement</span>},
+    <span class="bib-key">title</span>  = {{<span class="bib-value">Vision in the Era of Agents:
+              Toward Recursive Self-Improvement</span>}},
     <span class="bib-key">author</span> = {<span class="bib-value">Chen, Dong and Ge, Shuai and Fu, Yu and Ren, Xiangyu
               and Zhang, Zhihao and Wang, Hao and Wang, Changshuo
               and Ji, Jiayi and Ding, Henghui and He, Shuting</span>},
-    <span class="bib-key">note</span>   = {<span class="bib-value">Manuscript</span>}
+    <span class="bib-key">year</span>   = {<span class="bib-value">2026</span>},
+    <span class="bib-key">note</span>   = {<span class="bib-value">Manuscript</span>},
+    <span class="bib-key">url</span>    = {<span class="bib-value">https://visual-agent-survey.github.io/</span>}
   }</code></pre>
           <span id="copy-status" class="visually-hidden" aria-live="polite"></span>
         </div>
